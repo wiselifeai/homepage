@@ -1657,7 +1657,7 @@
                     addMonitorLog('→ 發送到 Workflow 1（諮詢表單）', 'info');
                     
                     const responses = await Promise.all([
-                        fetch('https://wiselifeai.zeabur.app/webhook/plan-purchase', {
+                        fetch('https://wiselife.zeabur.app/webhook/plan-purchase', {
                             method: 'POST',
                             headers: { 'Content-Type': 'application/json' },
                             body: JSON.stringify({
@@ -1671,7 +1671,7 @@
                                 submitTime: data.submitTime // ✅ 傳送台灣時間
                             })
                         }),
-                        fetch('https://wiselifeai.zeabur.app/webhook/contact-form', {
+                        fetch('https://wiselife.zeabur.app/webhook/contact-form', {
                             method: 'POST',
                             headers: { 'Content-Type': 'application/json' },
                             body: JSON.stringify(data)
@@ -1704,7 +1704,7 @@
                 } else {
                     addMonitorLog('→ 只發送到 Workflow 1（一般諮詢）', 'info');
                     
-                    const response = await fetch('https://wiselifeai.zeabur.app/webhook/contact-form', {
+                    const response = await fetch('https://wiselife.zeabur.app/webhook/contact-form', {
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json' },
                         body: JSON.stringify(data)
