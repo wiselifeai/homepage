@@ -267,9 +267,8 @@
         .footer-bottom{display:flex;align-items:center;justify-content:space-between;font-size:.82rem;color:rgba(255,255,255,.3);flex-wrap:wrap;gap:1rem;}
 
         /* ── 監控 ── */
-        #monitor-toggle{position:fixed;bottom:24px;right:24px;background:var(--primary);color:white;border:none;padding:10px 18px;border-radius:100px;cursor:pointer;font-weight:700;font-size:13px;box-shadow:var(--shadow-cta);z-index:99998;font-family:'Noto Sans TC',sans-serif;transition:all .3s;}
-        #monitor-toggle:hover{background:var(--primary-dark);transform:translateY(-2px);}
-        #debug-monitor{position:fixed;bottom:24px;right:24px;width:380px;max-height:460px;background:white;border:1.5px solid var(--neutral-200);border-radius:var(--radius-lg);padding:1.2rem;z-index:99999;font-family:'Inter',monospace;font-size:12px;color:var(--text-secondary);overflow-y:auto;box-shadow:var(--shadow-lg);display:none;}
+        #monitor-toggle{display:none !important;}
+        #debug-monitor{display:none !important;}
 
         /* ── RWD ── */
         @media(max-width:1024px){
@@ -1008,9 +1007,9 @@
             <div class="footer-col">
                 <h4>聯絡資訊</h4>
                 <ul>
-                    <li><a href="#">📧 contact@wutong-ai.com</a></li>
-                    <li><a href="#">📞 0912-345-678</a></li>
-                    <li><a href="#">📍 台北市信義區</a></li>
+                    <li><a href="mailto:wiselife.ai@gmail.com">📧 wiselife.ai@gmail.com</a></li>
+                    <li><a href="tel:0952060805">📞 0952-060805</a></li>
+                    <li><a href="#">📍 701臺南市東區龍山街101號</a></li>
                     <li><a href="#contact">預約免費診斷</a></li>
                 </ul>
             </div>
@@ -1152,7 +1151,7 @@
     function showErrorMessage(err) {
         const modal = document.createElement('div');
         modal.style.cssText = 'position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(28,19,10,.75);display:flex;align-items:center;justify-content:center;z-index:10000;backdrop-filter:blur(4px);';
-        modal.innerHTML = `<div style="background:white;padding:3rem;border-radius:24px;max-width:460px;width:90%;text-align:center;box-shadow:0 30px 80px rgba(0,0,0,.2);border:1.5px solid #EDE4D8;"><div style="width:72px;height:72px;background:#D94040;border-radius:50%;margin:0 auto 1.5rem;display:flex;align-items:center;justify-content:center;"><svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3"><path d="M6 18L18 6M6 6l12 12" stroke-linecap="round"/></svg></div><h2 style="color:#1C130A;font-size:1.8rem;font-weight:900;margin-bottom:1rem;">提交失敗</h2><p style="color:#5A4A38;font-size:1rem;line-height:1.85;margin-bottom:2rem;">請稍後再試，或直接聯繫我們：<br><br><strong style="color:#D4611A;">📞 0912-345-678</strong><br><strong style="color:#D4611A;">📧 contact@wutong-ai.com</strong></p><button onclick="this.parentElement.parentElement.remove()" style="background:#D94040;color:white;border:none;padding:.9rem 2.5rem;border-radius:8px;font-size:1rem;font-weight:700;cursor:pointer;">關閉</button></div>`;
+        modal.innerHTML = `<div style="background:white;padding:3rem;border-radius:24px;max-width:460px;width:90%;text-align:center;box-shadow:0 30px 80px rgba(0,0,0,.2);border:1.5px solid #EDE4D8;"><div style="width:72px;height:72px;background:#D94040;border-radius:50%;margin:0 auto 1.5rem;display:flex;align-items:center;justify-content:center;"><svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3"><path d="M6 18L18 6M6 6l12 12" stroke-linecap="round"/></svg></div><h2 style="color:#1C130A;font-size:1.8rem;font-weight:900;margin-bottom:1rem;">提交失敗</h2><p style="color:#5A4A38;font-size:1rem;line-height:1.85;margin-bottom:2rem;">請稍後再試，或直接聯繫我們：<br><br><strong style="color:#D4611A;">📞 0952-060805</strong><br><strong style="color:#D4611A;">📧 wiselife.ai@gmail.com</strong></p><button onclick="this.parentElement.parentElement.remove()" style="background:#D94040;color:white;border:none;padding:.9rem 2.5rem;border-radius:8px;font-size:1rem;font-weight:700;cursor:pointer;">關閉</button></div>`;
         document.body.appendChild(modal);
     }
 
