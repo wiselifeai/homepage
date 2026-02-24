@@ -1,1782 +1,1176 @@
 <!DOCTYPE html>
-<html lang="zh-TW">
+<html lang="zh-TW" data-version="A-pain-driven">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>森森悟桐 | 讓中小企業沒有難用的系統</title>
+    <title>您的企業，是不是也有這些問題？| 梧桐智能管理顧問公司</title>
+    <meta name="description" content="13個中小企業常見管理痛點，您中了幾個？梧桐智能提供管理顧問＋AI自動化雙核心服務，找問題→給方法→省成本。預約免費企業診斷。">
+    <meta name="keywords" content="中小企業管理顧問, AI自動化, 企業效率, 管理痛點, 流程優化, 台灣顧問">
+    <meta property="og:title" content="您的企業，是不是也有這些問題？| 梧桐智能管理顧問">
+    <meta property="og:description" content="手動報表、資訊分散、中階主管失能…這些問題正在消耗您的利潤。了解如何用AI解決。">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;600;700;900&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="preload" as="image" href="https://images.unsplash.com/photo-1553877522-43269d4ea984?w=800&q=80">
     <style>
         :root {
-            --primary-dark: #0A1628;
-            --primary-blue: #1E3A8A;
-            --accent-orange: #F97316;
-            --accent-cyan: #06B6D4;
-            --text-primary: #F8FAFC;
-            --text-secondary: #CBD5E1;
-            --surface: #1E293B;
-            --surface-light: #334155;
-            --success-green: #10b981;
-            --warning-red: #ef4444;
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Noto Sans TC', sans-serif;
-            background: var(--primary-dark);
-            color: var(--text-primary);
-            overflow-x: hidden;
-            line-height: 1.7;
-        }
-
-        /* 背景動態網格 */
-        .bg-grid {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: 
-                linear-gradient(90deg, rgba(30, 58, 138, 0.03) 1px, transparent 1px),
-                linear-gradient(rgba(30, 58, 138, 0.03) 1px, transparent 1px);
-            background-size: 50px 50px;
-            z-index: -1;
-            animation: gridMove 20s linear infinite;
-        }
-
-        @keyframes gridMove {
-            0% { transform: translate(0, 0); }
-            100% { transform: translate(50px, 50px); }
-        }
-
-        /* 導航列 */
-        nav {
-            position: fixed;
-            top: 0;
-            width: 100%;
-            padding: 1.5rem 5%;
-            background: rgba(10, 22, 40, 0.95);
-            backdrop-filter: blur(10px);
-            z-index: 1000;
-            border-bottom: 1px solid rgba(249, 115, 22, 0.1);
-        }
-
-        nav .container {
-            max-width: 1400px;
-            margin: 0 auto;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .logo {
-            font-size: 1.5rem;
-            font-weight: 900;
-            background: linear-gradient(135deg, var(--accent-orange), var(--accent-cyan));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            letter-spacing: -0.5px;
-        }
-
-        .cta-button {
-            padding: 0.8rem 2rem;
-            background: var(--accent-orange);
-            color: white;
-            border: none;
-            border-radius: 8px;
-            font-weight: 700;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            text-decoration: none;
-            display: inline-block;
-            font-family: 'Noto Sans TC', sans-serif;
-        }
-
-        .cta-button:hover {
-            background: #EA580C;
-            transform: translateY(-2px);
-            box-shadow: 0 10px 30px rgba(249, 115, 22, 0.3);
-        }
-
-        /* Hero 區塊 - 加入背景圖片 */
-        .hero {
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            padding: 8rem 5% 4rem;
-            position: relative;
-            background: linear-gradient(135deg, rgba(10, 22, 40, 0.95), rgba(30, 58, 138, 0.9)),
-                        url('https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=1920&q=80') center/cover;
-        }
-
-        .hero-content {
-            max-width: 1400px;
-            margin: 0 auto;
-            width: 100%;
-            display: grid;
-            grid-template-columns: 1.2fr 1fr;
-            gap: 4rem;
-            align-items: center;
-            position: relative;
-            z-index: 1;
-        }
-
-        .hero-text h1 {
-            font-size: 4rem;
-            font-weight: 900;
-            line-height: 1.1;
-            margin-bottom: 1.5rem;
-            background: linear-gradient(135deg, #FFFFFF, var(--text-secondary));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
-        .hero-text .highlight {
-            color: var(--accent-orange);
-            -webkit-text-fill-color: var(--accent-orange);
-        }
-
-        .hero-text p {
-            font-size: 1.3rem;
-            color: var(--text-secondary);
-            margin-bottom: 2rem;
-            max-width: 600px;
-        }
-
-        /* Hero 右側圖片 */
-        .hero-image {
-            position: relative;
-            border-radius: 20px;
-            overflow: hidden;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
-        }
-
-        .hero-image img {
-            width: 100%;
-            height: 500px;
-            object-fit: cover;
-            display: block;
-        }
-
-        .hero-image::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(135deg, rgba(249, 115, 22, 0.2), rgba(6, 182, 212, 0.2));
-            z-index: 1;
-        }
-
-        .hero-stats {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 2rem;
-            margin-top: 3rem;
-        }
-
-        .stat-item {
-            text-align: left;
-            opacity: 0;
-            animation: fadeInUp 0.6s ease forwards;
-        }
-
-        .stat-item:nth-child(1) { animation-delay: 0.2s; }
-        .stat-item:nth-child(2) { animation-delay: 0.4s; }
-        .stat-item:nth-child(3) { animation-delay: 0.6s; }
-
-        .stat-number {
-            font-size: 2.5rem;
-            font-weight: 900;
-            color: var(--accent-orange);
-            font-family: 'JetBrains Mono', monospace;
-        }
-
-        .stat-label {
-            color: var(--text-secondary);
-            font-size: 0.95rem;
-        }
-
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        /* 內容區塊通用樣式 */
-        section {
-            padding: 6rem 5%;
-            max-width: 1400px;
-            margin: 0 auto;
-        }
-
-        .section-title {
-            font-size: 3rem;
-            font-weight: 900;
-            margin-bottom: 1rem;
-            text-align: center;
-        }
-
-        .section-subtitle {
-            text-align: center;
-            color: var(--text-secondary);
-            font-size: 1.2rem;
-            margin-bottom: 4rem;
-            max-width: 700px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-
-        /* 客戶旅程 - 加入圖片 */
-        .journey-section {
-            background: linear-gradient(135deg, rgba(30, 58, 138, 0.1), rgba(249, 115, 22, 0.05));
-            border-radius: 30px;
-            padding: 4rem;
-            margin-bottom: 4rem;
-        }
-
-        .journey-timeline {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 3rem;
-            margin-top: 3rem;
-        }
-
-        .journey-step {
-            background: var(--surface);
-            border-radius: 20px;
-            padding: 3rem 2.5rem;
-            position: relative;
-            transition: all 0.4s ease;
-            border: 2px solid transparent;
-        }
-
-        .journey-step:hover {
-            border-color: var(--accent-orange);
-            transform: translateY(-10px);
-            box-shadow: 0 20px 40px rgba(249, 115, 22, 0.2);
-        }
-
-        .journey-image {
-            width: 100%;
-            height: 200px;
-            object-fit: cover;
-            border-radius: 15px;
-            margin-bottom: 1.5rem;
-        }
-
-        .journey-phase {
-            display: inline-block;
-            padding: 0.5rem 1.2rem;
-            background: linear-gradient(135deg, var(--accent-orange), var(--accent-cyan));
-            color: white;
-            border-radius: 20px;
-            font-size: 0.9rem;
-            font-weight: 700;
-            margin-bottom: 1.5rem;
-        }
-
-        .journey-step h3 {
-            font-size: 1.8rem;
-            color: var(--text-primary);
-            margin-bottom: 1rem;
-        }
-
-        .journey-step p {
-            color: var(--text-secondary);
-            line-height: 1.9;
-            margin-bottom: 1.5rem;
-        }
-
-        .journey-quote {
-            font-style: italic;
-            color: var(--accent-cyan);
-            border-left: 3px solid var(--accent-orange);
-            padding-left: 1.2rem;
-            margin-top: 1.5rem;
-            font-size: 1.05rem;
-        }
-
-        /* 使用前後對比 */
-        .before-after-section {
-            padding: 6rem 5%;
-            background: linear-gradient(135deg, rgba(15, 23, 42, 0.8), rgba(30, 58, 138, 0.3));
-            margin-top: 4rem;
-        }
-
-        .comparison-container {
-            max-width: 1400px;
-            margin: 0 auto;
-        }
-
-        .comparison-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 3rem;
-            margin-top: 4rem;
-        }
-
-        .comparison-card {
-            background: rgba(30, 41, 59, 0.6);
-            backdrop-filter: blur(10px);
-            border-radius: 25px;
-            padding: 3rem;
-            border: 2px solid rgba(249, 115, 22, 0.2);
-            position: relative;
-            transition: all 0.4s ease;
-        }
-
-        .comparison-card:hover {
-            transform: scale(1.02);
-            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
-        }
-
-        .comparison-label {
-            position: absolute;
-            top: -20px;
-            left: 50%;
-            transform: translateX(-50%);
-            padding: 0.6rem 2rem;
-            border-radius: 25px;
-            font-weight: 700;
-            font-size: 1.1rem;
-        }
-
-        .before-label {
-            background: var(--warning-red);
-        }
-
-        .after-label {
-            background: var(--success-green);
-        }
-
-        .comparison-card h3 {
-            font-size: 2rem;
-            margin-bottom: 2rem;
-            margin-top: 1rem;
-            text-align: center;
-        }
-
-        .comparison-list {
-            list-style: none;
-        }
-
-        .comparison-list li {
-            padding: 1.2rem 1rem;
-            margin-bottom: 0.8rem;
-            border-radius: 10px;
-            background: rgba(15, 23, 42, 0.5);
-            display: flex;
-            align-items: flex-start;
-            gap: 1rem;
-            transition: all 0.3s ease;
-        }
-
-        .comparison-list li:hover {
-            transform: translateX(10px);
-        }
-
-        .comparison-list li::before {
-            content: '✗';
-            color: var(--warning-red);
-            font-size: 1.5rem;
-            font-weight: 700;
-            flex-shrink: 0;
-        }
-
-        .comparison-card.after .comparison-list li::before {
-            content: '✓';
-            color: var(--success-green);
-        }
-
-        /* 客戶見證 - 加入圖片 */
-        .testimonials-section {
-            padding: 6rem 5%;
-        }
-
-        .testimonials-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 3rem;
-            margin-top: 4rem;
-        }
-
-        .testimonial-card {
-            background: linear-gradient(135deg, rgba(30, 41, 59, 0.6), rgba(30, 58, 138, 0.2));
-            backdrop-filter: blur(10px);
-            border: 2px solid rgba(249, 115, 22, 0.2);
-            border-radius: 25px;
-            padding: 3rem;
-            transition: all 0.4s ease;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .testimonial-card::before {
-            content: '"';
-            position: absolute;
-            top: -20px;
-            right: 20px;
-            font-size: 10rem;
-            color: rgba(249, 115, 22, 0.1);
-            font-family: serif;
-            line-height: 1;
-        }
-
-        .testimonial-card:hover {
-            transform: translateY(-10px);
-            border-color: var(--accent-orange);
-            box-shadow: 0 20px 50px rgba(249, 115, 22, 0.2);
-        }
-
-        .testimonial-header {
-            display: flex;
-            align-items: center;
-            gap: 1.5rem;
-            margin-bottom: 2rem;
-        }
-
-        .testimonial-avatar {
-            width: 100px;
-            height: 100px;
-            border-radius: 50%;
-            object-fit: cover;
-            border: 3px solid var(--accent-orange);
-        }
-
-        .testimonial-text {
-            font-size: 1.15rem;
-            line-height: 1.9;
-            color: var(--text-primary);
-            margin-bottom: 2rem;
-            position: relative;
-            z-index: 1;
-        }
-
-        .testimonial-author {
-            display: flex;
-            align-items: center;
-            gap: 1.5rem;
-            border-top: 1px solid rgba(249, 115, 22, 0.2);
-            padding-top: 1.5rem;
-        }
-
-        .author-avatar {
-            width: 60px;
-            height: 60px;
-            border-radius: 50%;
-            background: linear-gradient(135deg, var(--accent-orange), var(--accent-cyan));
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.5rem;
-            color: white;
-            font-weight: 700;
-            flex-shrink: 0;
-        }
-
-        .author-info h4 {
-            font-weight: 700;
-            color: var(--text-primary);
-            margin-bottom: 0.3rem;
-        }
-
-        .author-info p {
-            color: var(--text-secondary);
-            font-size: 0.95rem;
-        }
-
-        .highlight-number {
-            color: var(--accent-orange);
-            font-weight: 700;
-        }
-
-        /* 成功數據 */
-        .stats-showcase {
-            background: linear-gradient(135deg, rgba(249, 115, 22, 0.1), rgba(6, 182, 212, 0.1));
-            border-radius: 30px;
-            padding: 4rem;
-            margin: 4rem 0;
-        }
-
-        .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 3rem;
-            margin-top: 3rem;
-        }
-
-        .stat-card {
-            text-align: center;
-            padding: 2.5rem 1.5rem;
-            background: rgba(30, 41, 59, 0.6);
-            backdrop-filter: blur(10px);
-            border-radius: 20px;
-            border: 2px solid rgba(249, 115, 22, 0.2);
-            transition: all 0.4s ease;
-        }
-
-        .stat-card:hover {
-            transform: translateY(-10px);
-            border-color: var(--accent-orange);
-            box-shadow: 0 15px 40px rgba(249, 115, 22, 0.3);
-        }
-
-        .stat-card .big-number {
-            font-size: 3.5rem;
-            font-weight: 900;
-            background: linear-gradient(135deg, var(--accent-orange), var(--accent-cyan));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            margin-bottom: 0.5rem;
-            font-family: 'JetBrains Mono', monospace;
-        }
-
-        .stat-card .stat-title {
-            font-size: 1.1rem;
-            font-weight: 700;
-            color: var(--text-primary);
-            margin-bottom: 0.5rem;
-        }
-
-        .stat-card .stat-desc {
-            font-size: 0.9rem;
-            color: var(--text-secondary);
-        }
-
-        /* 案例展示 - 加入圖片 */
-        .case-studies {
-            padding: 6rem 5%;
-        }
-
-        .case-grid {
-            max-width: 1400px;
-            margin: 0 auto;
-            display: grid;
-            gap: 4rem;
-            margin-top: 4rem;
-        }
-
-        .case-item {
-            display: grid;
-            grid-template-columns: 1fr 1.2fr;
-            gap: 4rem;
-            align-items: center;
-            padding: 3rem;
-            background: linear-gradient(135deg, rgba(30, 41, 59, 0.6), rgba(30, 58, 138, 0.2));
-            border-radius: 25px;
-            transition: all 0.4s ease;
-            border: 2px solid rgba(249, 115, 22, 0.2);
-        }
-
-        .case-item:nth-child(even) {
-            grid-template-columns: 1.2fr 1fr;
-        }
-
-        .case-item:hover {
-            transform: translateX(10px);
-            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.1);
-            border-color: var(--accent-orange);
-        }
-
-        .case-image {
-            width: 100%;
-            height: 300px;
-            object-fit: cover;
-            border-radius: 20px;
-        }
-
-        .case-content h3 {
-            font-size: 2rem;
-            color: var(--text-primary);
-            margin-bottom: 1rem;
-            font-weight: 700;
-        }
-
-        .case-industry {
-            display: inline-block;
-            padding: 0.4rem 1rem;
-            background: var(--accent-orange);
-            color: white;
-            border-radius: 15px;
-            font-size: 0.85rem;
-            margin-bottom: 1.5rem;
-        }
-
-        .case-content p {
-            color: var(--text-secondary);
-            line-height: 1.9;
-            margin-bottom: 1.5rem;
-        }
-
-        .case-results {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 1rem;
-            margin-top: 1.5rem;
-        }
-
-        .result-item {
-            padding: 1rem;
-            background: rgba(10, 22, 40, 0.5);
-            border-radius: 10px;
-            text-align: center;
-        }
-
-        .result-value {
-            font-size: 1.8rem;
-            font-weight: 700;
-            color: var(--accent-orange);
-        }
-
-        .result-label {
-            font-size: 0.9rem;
-            color: var(--text-secondary);
-            margin-top: 0.3rem;
-        }
-
-        /* 痛點解決方案 */
-        .pain-points {
-            background: linear-gradient(135deg, rgba(30, 58, 138, 0.1), rgba(249, 115, 22, 0.05));
-            border-radius: 30px;
-            padding: 4rem;
-        }
-
-        .pain-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 2.5rem;
-        }
-
-        .pain-card {
-            background: var(--surface);
-            padding: 2.5rem;
-            border-radius: 16px;
-            transition: all 0.4s ease;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .pain-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 4px;
-            background: linear-gradient(90deg, var(--accent-orange), var(--accent-cyan));
-            transform: scaleX(0);
-            transition: transform 0.4s ease;
-        }
-
-        .pain-card:hover::before {
-            transform: scaleX(1);
-        }
-
-        .pain-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 20px 50px rgba(249, 115, 22, 0.2);
-        }
-
-        .pain-icon {
-            font-size: 3rem;
-            margin-bottom: 1.5rem;
-        }
-
-        .pain-title {
-            font-size: 1.5rem;
-            font-weight: 700;
-            margin-bottom: 1rem;
-            color: var(--accent-orange);
-        }
-
-        .pain-description {
-            color: var(--text-secondary);
-            line-height: 1.8;
-        }
-
-        /* 團隊背景 */
-        .team-section {
-            background: var(--surface);
-            border-radius: 30px;
-            padding: 4rem;
-            margin-top: 4rem;
-        }
-
-        .company-logos {
-            display: grid;
-            grid-template-columns: repeat(5, 1fr);
-            gap: 2rem;
-            margin-top: 3rem;
-            align-items: center;
-        }
-
-        .company-logo {
-            padding: 1.5rem;
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: 12px;
-            text-align: center;
-            font-weight: 700;
-            color: var(--text-secondary);
-            transition: all 0.3s ease;
-            border: 1px solid rgba(249, 115, 22, 0.1);
-        }
-
-        .company-logo:hover {
-            background: rgba(249, 115, 22, 0.1);
-            border-color: var(--accent-orange);
-            color: var(--text-primary);
-            transform: scale(1.05);
-        }
-
-        .vision-mission {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 3rem;
-            margin-top: 4rem;
-        }
-
-        .vision-card, .mission-card {
-            padding: 2.5rem;
-            background: rgba(6, 182, 212, 0.1);
-            border-radius: 16px;
-            border-left: 4px solid var(--accent-cyan);
-        }
-
-        .mission-card {
-            background: rgba(249, 115, 22, 0.1);
-            border-left-color: var(--accent-orange);
-        }
-
-        .vision-card h3, .mission-card h3 {
-            font-size: 1.5rem;
-            margin-bottom: 1rem;
-            color: var(--accent-cyan);
-        }
-
-        .mission-card h3 {
-            color: var(--accent-orange);
-        }
-
-        /* 服務方案 */
-        .pricing-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 2.5rem;
-            margin-top: 3rem;
-        }
-
-        .pricing-card {
-            background: var(--surface);
-            padding: 3rem 2rem;
-            border-radius: 20px;
-            text-align: center;
-            transition: all 0.4s ease;
-            border: 2px solid transparent;
-        }
-
-        .pricing-card.featured {
-            background: linear-gradient(135deg, rgba(249, 115, 22, 0.2), rgba(6, 182, 212, 0.2));
-            border-color: var(--accent-orange);
-            transform: scale(1.05);
-        }
-
-        .pricing-card:hover {
-            transform: translateY(-10px) scale(1.02);
-            border-color: var(--accent-cyan);
-        }
-
-        .plan-name {
-            font-size: 1.5rem;
-            font-weight: 700;
-            margin-bottom: 1rem;
-            color: var(--accent-orange);
-        }
-
-        .plan-price {
-            font-size: 3rem;
-            font-weight: 900;
-            font-family: 'JetBrains Mono', monospace;
-            margin-bottom: 0.5rem;
-        }
-
-        .plan-price span {
-            font-size: 1.2rem;
-            color: var(--text-secondary);
-        }
-
-        .plan-features {
-            list-style: none;
-            margin: 2rem 0;
-            text-align: left;
-        }
-
-        .plan-features li {
-            padding: 0.8rem 0;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-            color: var(--text-secondary);
-        }
-
-        .plan-features li::before {
-            content: '✓ ';
-            color: var(--accent-cyan);
-            font-weight: 700;
-            margin-right: 0.5rem;
-        }
-
-        /* 聯絡表單 */
-        .contact-section {
-            background: linear-gradient(135deg, var(--surface), var(--surface-light));
-            border-radius: 30px;
-            padding: 4rem;
-            margin-top: 4rem;
-        }
-
-        .contact-form {
-            max-width: 600px;
-            margin: 0 auto;
-        }
-
-        .form-group {
-            margin-bottom: 1.5rem;
-        }
-
-        .form-group label {
-            display: block;
-            margin-bottom: 0.5rem;
-            font-weight: 600;
-            color: var(--text-secondary);
-        }
-
-        .form-group input,
-        .form-group textarea {
-            width: 100%;
-            padding: 1rem;
-            background: var(--primary-dark);
-            border: 2px solid rgba(249, 115, 22, 0.2);
-            border-radius: 8px;
-            color: var(--text-primary);
-            font-family: 'Noto Sans TC', sans-serif;
-            transition: all 0.3s ease;
-        }
-
-        .form-group input:focus,
-        .form-group textarea:focus {
-            outline: none;
-            border-color: var(--accent-orange);
-            box-shadow: 0 0 0 3px rgba(249, 115, 22, 0.1);
-        }
-
-        .form-group textarea {
-            min-height: 120px;
-            resize: vertical;
-        }
-
-        /* Footer */
-        footer {
-            text-align: center;
-            padding: 3rem 5%;
-            border-top: 1px solid rgba(249, 115, 22, 0.1);
-            color: var(--text-secondary);
-        }
-
-        /* 響應式設計 */
-        @media (max-width: 1024px) {
-            .hero-content,
-            .comparison-grid,
-            .testimonials-grid,
-            .case-item,
-            .case-item:nth-child(even) {
-                grid-template-columns: 1fr;
-            }
-
-            .pain-grid,
-            .pricing-grid,
-            .journey-timeline {
-                grid-template-columns: 1fr;
-            }
-
-            .company-logos {
-                grid-template-columns: repeat(2, 1fr);
-            }
-
-            .vision-mission {
-                grid-template-columns: 1fr;
-            }
-
-            .stats-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
-        }
-
-        @media (max-width: 768px) {
-            .hero-text h1 {
-                font-size: 2.5rem;
-            }
-
-            .hero-stats,
-            .stats-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .section-title {
-                font-size: 2rem;
-            }
-
-            .hero-image {
-                height: 300px;
-            }
+            --primary:       #D4611A;
+            --primary-light: #E8813F;
+            --primary-dark:  #B04D10;
+            --secondary:     #7C4A2D;
+            --secondary-light: #A0684A;
+            --accent:        #F5A623;
+            --accent-light:  #FFD280;
+            --neutral-50:    #FAFAF8;
+            --neutral-100:   #F5F0EB;
+            --neutral-200:   #EDE4D8;
+            --neutral-300:   #D6C9B8;
+            --neutral-500:   #8C7B6A;
+            --neutral-700:   #4A3D30;
+            --neutral-900:   #1C130A;
+            --success:       #3A9E6A;
+            --danger:        #D94040;
+            --text-primary:  #1C130A;
+            --text-secondary:#5A4A38;
+            --text-muted:    #8C7B6A;
+            --bg-base:       #FAFAF8;
+            --bg-warm:       #FDF6EE;
+            --bg-section:    #F5F0EB;
+            --radius-sm:  8px;
+            --radius-md:  16px;
+            --radius-lg:  24px;
+            --shadow-sm:  0 2px 8px rgba(100,60,20,0.08);
+            --shadow-md:  0 8px 24px rgba(100,60,20,0.12);
+            --shadow-lg:  0 20px 50px rgba(100,60,20,0.16);
+            --shadow-cta: 0 8px 30px rgba(212,97,26,0.35);
+        }
+        *{margin:0;padding:0;box-sizing:border-box;}
+        html{scroll-behavior:smooth;}
+        body{font-family:'Noto Sans TC','Inter',sans-serif;background:var(--bg-base);color:var(--text-primary);overflow-x:hidden;line-height:1.7;-webkit-font-smoothing:antialiased;}
+
+        /* ── Nav ── */
+        nav{position:fixed;top:0;width:100%;padding:0 5%;height:72px;background:rgba(250,250,248,0.95);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);z-index:1000;border-bottom:1px solid var(--neutral-200);box-shadow:var(--shadow-sm);}
+        nav .container{max-width:1280px;height:100%;margin:0 auto;display:flex;justify-content:space-between;align-items:center;}
+        .logo-wrap{display:flex;align-items:center;gap:10px;text-decoration:none;}
+        .logo-icon{width:38px;height:38px;background:linear-gradient(135deg,var(--primary),var(--accent));border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:1.3rem;flex-shrink:0;box-shadow:0 4px 12px rgba(212,97,26,0.3);}
+        .logo-text{display:flex;flex-direction:column;line-height:1.2;}
+        .logo-main{font-size:1.05rem;font-weight:800;color:var(--primary-dark);letter-spacing:.5px;}
+        .logo-sub{font-size:.68rem;color:var(--text-muted);letter-spacing:1px;}
+        .nav-cta{padding:.6rem 1.6rem;background:var(--primary);color:white;border:none;border-radius:var(--radius-sm);font-weight:700;cursor:pointer;transition:all .25s;text-decoration:none;display:inline-block;font-family:'Noto Sans TC',sans-serif;font-size:.9rem;box-shadow:0 4px 14px rgba(212,97,26,0.28);}
+        .nav-cta:hover{background:var(--primary-dark);transform:translateY(-2px);box-shadow:var(--shadow-cta);}
+
+        /* ── 通用 ── */
+        .btn-primary{display:inline-flex;align-items:center;gap:8px;padding:.85rem 2.2rem;background:var(--primary);color:white;border:none;border-radius:var(--radius-sm);font-weight:700;cursor:pointer;transition:all .25s;text-decoration:none;font-family:'Noto Sans TC',sans-serif;font-size:1rem;box-shadow:var(--shadow-cta);}
+        .btn-primary:hover{background:var(--primary-dark);transform:translateY(-3px);box-shadow:0 12px 35px rgba(212,97,26,0.4);}
+        .btn-outline{display:inline-flex;align-items:center;gap:8px;padding:.85rem 2.2rem;background:transparent;color:var(--primary);border:2px solid var(--primary);border-radius:var(--radius-sm);font-weight:700;cursor:pointer;transition:all .25s;text-decoration:none;font-family:'Noto Sans TC',sans-serif;font-size:1rem;}
+        .btn-outline:hover{background:var(--primary);color:white;transform:translateY(-3px);box-shadow:var(--shadow-cta);}
+        .section-wrap{padding:6rem 5%;}
+        .section-inner{max-width:1280px;margin:0 auto;}
+        .section-eyebrow{display:flex;align-items:center;gap:10px;margin-bottom:1.2rem;}
+        .eyebrow-line{width:32px;height:3px;background:var(--primary);border-radius:2px;}
+        .eyebrow-text{font-size:.85rem;font-weight:700;color:var(--primary);letter-spacing:2px;text-transform:uppercase;}
+        .section-title{font-size:2.8rem;font-weight:900;line-height:1.2;color:var(--text-primary);margin-bottom:1.2rem;}
+        .section-subtitle{font-size:1.1rem;color:var(--text-secondary);max-width:640px;line-height:1.8;}
+        .section-header-center{text-align:center;}
+        .section-header-center .section-eyebrow{justify-content:center;}
+        .section-header-center .section-subtitle{margin:0 auto;}
+        .reveal{opacity:0;transform:translateY(28px);transition:opacity .65s ease,transform .65s ease;}
+        .reveal.visible{opacity:1;transform:translateY(0);}
+
+        /* ── Hero ── */
+        .hero{min-height:100vh;display:flex;align-items:center;padding:7rem 5% 5rem;background:var(--bg-warm);position:relative;overflow:hidden;}
+        .hero::before{content:'';position:absolute;top:-200px;right:-200px;width:700px;height:700px;background:radial-gradient(circle,rgba(245,166,35,.12) 0%,transparent 70%);pointer-events:none;}
+        .hero::after{content:'';position:absolute;bottom:-100px;left:-100px;width:500px;height:500px;background:radial-gradient(circle,rgba(212,97,26,.08) 0%,transparent 70%);pointer-events:none;}
+        .hero-inner{max-width:1280px;margin:0 auto;width:100%;display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:center;position:relative;z-index:1;}
+        .hero-badge{display:inline-flex;align-items:center;gap:8px;padding:.45rem 1.2rem;background:linear-gradient(135deg,rgba(212,97,26,.1),rgba(245,166,35,.15));border:1px solid rgba(212,97,26,.25);border-radius:100px;font-size:.85rem;font-weight:600;color:var(--primary-dark);margin-bottom:2rem;}
+        .hero-badge-dot{width:8px;height:8px;border-radius:50%;background:var(--primary);animation:pulse 2s ease infinite;}
+        @keyframes pulse{0%,100%{opacity:1;transform:scale(1);}50%{opacity:.6;transform:scale(1.3);}}
+        .hero-h1{font-size:3.4rem;font-weight:900;line-height:1.15;color:var(--text-primary);margin-bottom:1.5rem;}
+        .hero-h1 .hl{color:var(--primary);position:relative;display:inline-block;}
+        .hero-h1 .hl::after{content:'';position:absolute;bottom:2px;left:0;width:100%;height:6px;background:var(--accent-light);z-index:-1;border-radius:3px;}
+        .hero-desc{font-size:1.1rem;color:var(--text-secondary);margin-bottom:2.5rem;max-width:520px;line-height:1.9;}
+        .hero-actions{display:flex;gap:1.2rem;flex-wrap:wrap;margin-bottom:3.5rem;}
+        .hero-stats{display:grid;grid-template-columns:repeat(3,1fr);background:white;border-radius:var(--radius-md);border:1px solid var(--neutral-200);box-shadow:var(--shadow-sm);overflow:hidden;}
+        .stat-item{padding:1.4rem 1.2rem;text-align:center;border-right:1px solid var(--neutral-200);}
+        .stat-item:last-child{border-right:none;}
+        .stat-number{font-size:1.7rem;font-weight:900;color:var(--primary);display:block;line-height:1;margin-bottom:.3rem;}
+        .stat-label{font-size:.78rem;color:var(--text-muted);font-weight:500;}
+        .hero-visual{position:relative;}
+        .hero-card-main{background:white;border-radius:var(--radius-lg);overflow:hidden;box-shadow:var(--shadow-lg);border:1px solid var(--neutral-200);}
+        .hero-card-main img{width:100%;height:400px;object-fit:cover;display:block;}
+        .hero-card-overlay{position:absolute;bottom:-24px;left:-24px;background:white;border-radius:var(--radius-md);padding:1.2rem 1.6rem;box-shadow:var(--shadow-md);border:1px solid var(--neutral-200);display:flex;align-items:center;gap:12px;min-width:210px;}
+        .overlay-icon{width:44px;height:44px;background:linear-gradient(135deg,var(--primary),var(--accent));border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:1.3rem;flex-shrink:0;}
+        .overlay-text strong{display:block;font-size:1rem;font-weight:800;color:var(--primary);}
+        .overlay-text span{font-size:.78rem;color:var(--text-muted);}
+        .hero-card-badge{position:absolute;top:-16px;right:24px;background:var(--accent);color:var(--neutral-900);padding:.5rem 1.2rem;border-radius:100px;font-size:.82rem;font-weight:700;box-shadow:0 4px 12px rgba(245,166,35,.4);}
+
+        /* ── Checklist ── */
+        .checklist-section{background:var(--bg-section);}
+        .checklist-layout{display:grid;grid-template-columns:1fr 220px;gap:3rem;align-items:start;margin-top:3rem;}
+        .checklist-groups{display:flex;flex-direction:column;gap:2.5rem;}
+        .checklist-group-title{font-size:.8rem;font-weight:700;color:var(--text-muted);letter-spacing:1.5px;text-transform:uppercase;margin-bottom:1rem;display:flex;align-items:center;gap:8px;}
+        .checklist-group-title::after{content:'';flex:1;height:1px;background:var(--neutral-200);}
+        .checklist-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:.75rem;}
+        .checklist-item{background:white;border:2px solid var(--neutral-200);border-radius:var(--radius-sm);padding:1rem 1.1rem;cursor:pointer;transition:all .2s ease;display:flex;align-items:flex-start;gap:10px;user-select:none;}
+        .checklist-item:hover{border-color:var(--primary-light);transform:translateY(-1px);box-shadow:var(--shadow-sm);}
+        .checklist-item.checked{border-color:var(--primary);background:linear-gradient(135deg,rgba(212,97,26,.05),rgba(245,166,35,.05));}
+        .check-circle{width:22px;height:22px;border:2px solid var(--neutral-300);border-radius:50%;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:.75rem;color:transparent;transition:all .2s;margin-top:2px;}
+        .checklist-item.checked .check-circle{background:var(--primary);border-color:var(--primary);color:white;}
+        .check-text h4{font-size:.88rem;font-weight:700;color:var(--text-primary);margin-bottom:.2rem;line-height:1.3;}
+        .check-text p{font-size:.76rem;color:var(--text-muted);line-height:1.5;}
+        .checklist-item.checked .check-text h4{color:var(--primary-dark);}
+        .checklist-counter-card{position:sticky;top:90px;background:white;border:2px solid var(--primary);border-radius:var(--radius-md);padding:1.8rem;text-align:center;box-shadow:var(--shadow-md);}
+        .counter-big{font-size:3.5rem;font-weight:900;color:var(--primary);line-height:1;display:block;font-family:'Inter',sans-serif;}
+        .counter-label{font-size:.85rem;color:var(--text-secondary);margin:.5rem 0 1.5rem;}
+        .counter-bar-wrap{background:var(--neutral-200);border-radius:100px;height:8px;overflow:hidden;margin-bottom:1rem;}
+        .counter-bar{height:100%;background:linear-gradient(90deg,var(--primary),var(--accent));border-radius:100px;transition:width .3s ease;width:0%;}
+        .counter-hint{font-size:.75rem;color:var(--text-muted);line-height:1.6;}
+        .checklist-result-banner{display:none;margin-top:2rem;background:linear-gradient(135deg,var(--primary-dark),var(--primary));color:white;border-radius:var(--radius-md);padding:1.5rem 2rem;align-items:center;justify-content:space-between;gap:1.5rem;flex-wrap:wrap;}
+        .result-banner-text strong{display:block;font-size:1.1rem;font-weight:800;margin-bottom:.3rem;}
+        .result-banner-text span{font-size:.88rem;opacity:.85;}
+        .result-banner-btn{padding:.75rem 1.8rem;background:white;color:var(--primary-dark);border:none;border-radius:var(--radius-sm);font-family:'Noto Sans TC',sans-serif;font-weight:800;font-size:.95rem;cursor:pointer;transition:all .2s;text-decoration:none;display:inline-block;white-space:nowrap;}
+        .result-banner-btn:hover{background:var(--accent);transform:translateY(-2px);}
+
+        /* ── 問題根源 ── */
+        .root-cause-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2rem;margin-top:4rem;}
+        .root-cause-card{background:white;border-radius:var(--radius-lg);padding:2.5rem;border:1px solid var(--neutral-200);box-shadow:var(--shadow-sm);transition:all .35s;}
+        .root-cause-card:hover{transform:translateY(-8px);box-shadow:var(--shadow-lg);border-color:var(--primary-light);}
+        .root-icon-wrap{width:64px;height:64px;background:linear-gradient(135deg,rgba(212,97,26,.1),rgba(245,166,35,.15));border-radius:var(--radius-md);display:flex;align-items:center;justify-content:center;font-size:2rem;margin-bottom:1.5rem;border:1px solid rgba(212,97,26,.15);}
+        .root-title{font-size:1.2rem;font-weight:800;color:var(--text-primary);margin-bottom:.8rem;}
+        .root-desc{color:var(--text-secondary);line-height:1.85;font-size:.95rem;}
+
+        /* ── 解決方案雙柱 ── */
+        .solution-section{background:var(--bg-warm);}
+        .solution-pillars{display:grid;grid-template-columns:1fr 1fr;gap:2rem;margin-top:4rem;}
+        .pillar-card{border-radius:var(--radius-lg);padding:2.8rem;transition:all .35s;border:1px solid transparent;}
+        .pillar-card:hover{transform:translateY(-6px);box-shadow:var(--shadow-lg);}
+        .pillar-a{background:linear-gradient(135deg,var(--secondary),#5A3520);color:white;}
+        .pillar-b{background:linear-gradient(135deg,var(--primary),var(--primary-dark));color:white;}
+        .pillar-icon-big{font-size:2.8rem;margin-bottom:1.2rem;display:block;}
+        .pillar-title{font-size:1.5rem;font-weight:900;margin-bottom:.5rem;}
+        .pillar-subtitle{font-size:.9rem;opacity:.75;margin-bottom:1.5rem;}
+        .pillar-divider{height:1px;background:rgba(255,255,255,.2);margin:1.5rem 0;}
+        .pillar-list{list-style:none;}
+        .pillar-list li{padding:.5rem 0;font-size:.93rem;opacity:.9;display:flex;align-items:center;gap:8px;border-bottom:1px solid rgba(255,255,255,.1);}
+        .pillar-list li:last-child{border-bottom:none;}
+        .pillar-list li::before{content:'✓';font-weight:800;opacity:.8;flex-shrink:0;}
+        .pillar-fit{font-size:.8rem;opacity:.6;margin-top:1.2rem;font-style:italic;}
+        .solution-quote{background:var(--neutral-900);color:white;text-align:center;padding:3rem 2rem;border-radius:var(--radius-lg);margin-top:2rem;}
+        .solution-quote p{font-size:1.6rem;font-weight:900;line-height:1.5;}
+        .solution-quote .hl{color:var(--accent);}
+        .solution-quote span{display:block;font-size:.9rem;opacity:.5;margin-top:.8rem;font-weight:400;}
+
+        /* ── 六步驟流程 ── */
+        .process-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2rem;margin-top:4rem;}
+        .process-card{background:white;border-radius:var(--radius-lg);overflow:hidden;border:1px solid var(--neutral-200);box-shadow:var(--shadow-sm);transition:all .35s;}
+        .process-card:hover{transform:translateY(-6px);box-shadow:var(--shadow-md);border-color:var(--primary-light);}
+        .process-card img{width:100%;height:160px;object-fit:cover;display:block;}
+        .process-card-body{padding:1.5rem;}
+        .process-badge{display:inline-flex;align-items:center;gap:6px;padding:.3rem .9rem;background:linear-gradient(135deg,var(--primary),var(--accent));color:white;border-radius:100px;font-size:.78rem;font-weight:700;margin-bottom:1rem;}
+        .process-num{width:18px;height:18px;background:rgba(255,255,255,.25);border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-size:.68rem;font-weight:800;}
+        .process-card-body h3{font-size:1.05rem;font-weight:800;color:var(--text-primary);margin-bottom:.5rem;}
+        .process-card-body p{font-size:.88rem;color:var(--text-secondary);line-height:1.75;}
+
+        /* ── 真實案例 ── */
+        .cases-section{background:var(--bg-section);}
+        .case-real-list{display:flex;flex-direction:column;gap:2.5rem;margin-top:4rem;}
+        .case-real-card{background:white;border-radius:var(--radius-lg);overflow:hidden;box-shadow:var(--shadow-sm);border:1px solid var(--neutral-200);display:grid;grid-template-columns:360px 1fr;transition:all .35s;}
+        .case-real-card:hover{box-shadow:var(--shadow-lg);border-color:var(--primary-light);}
+        .case-real-card.reverse{grid-template-columns:1fr 360px;}
+        .case-real-card.reverse .case-real-img-wrap{order:2;}
+        .case-real-img-wrap{overflow:hidden;}
+        .case-real-img{width:100%;height:100%;object-fit:cover;display:block;min-height:280px;transition:transform .5s;}
+        .case-real-card:hover .case-real-img{transform:scale(1.05);}
+        .case-real-body{padding:2.5rem;}
+        .case-tag{display:inline-flex;padding:.35rem 1rem;background:rgba(212,97,26,.1);color:var(--primary);border-radius:100px;font-size:.82rem;font-weight:700;margin-bottom:1rem;border:1px solid rgba(212,97,26,.2);}
+        .case-real-body h3{font-size:1.5rem;font-weight:800;color:var(--text-primary);margin-bottom:1.2rem;line-height:1.35;}
+        .case-problem-label,.case-result-label{font-size:.78rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:.6rem;}
+        .case-problem-label{color:var(--danger);}
+        .case-result-label{color:var(--success);margin-top:1.2rem;}
+        .case-item-list{list-style:none;}
+        .case-item-list li{display:flex;align-items:flex-start;gap:8px;padding:.4rem 0;font-size:.9rem;color:var(--text-secondary);}
+        .case-item-list.problem li::before{content:'✗';color:var(--danger);font-weight:700;flex-shrink:0;margin-top:1px;}
+        .case-item-list.result li::before{content:'✓';color:var(--success);font-weight:700;flex-shrink:0;margin-top:1px;}
+        .case-metrics{display:flex;gap:1.5rem;margin-top:1.5rem;padding-top:1.5rem;border-top:1px solid var(--neutral-200);}
+        .case-metric{text-align:center;}
+        .case-metric-val{font-size:1.8rem;font-weight:900;color:var(--primary);display:block;line-height:1;}
+        .case-metric-lbl{font-size:.75rem;color:var(--text-muted);margin-top:.3rem;}
+
+        /* ── 效益數據（深色） ── */
+        .stats-dark{background:var(--neutral-900);position:relative;overflow:hidden;}
+        .stats-dark::before{content:'';position:absolute;top:-200px;right:-200px;width:600px;height:600px;background:radial-gradient(circle,rgba(245,166,35,.12) 0%,transparent 70%);pointer-events:none;}
+        .stats-dark .section-eyebrow .eyebrow-text{color:var(--accent-light);}
+        .stats-dark .eyebrow-line{background:var(--accent);}
+        .stats-dark .section-title{color:white;}
+        .stats-dark .section-subtitle{color:rgba(255,255,255,.6);}
+        .stats-4grid{display:grid;grid-template-columns:repeat(4,1fr);gap:2rem;margin-top:3.5rem;}
+        .stat-big-card{text-align:center;padding:2.5rem 1.5rem;background:rgba(255,255,255,.05);border-radius:var(--radius-lg);border:1px solid rgba(255,255,255,.1);transition:all .35s;}
+        .stat-big-card:hover{background:rgba(255,255,255,.1);transform:translateY(-8px);}
+        .big-num{font-size:2.8rem;font-weight:900;background:linear-gradient(135deg,#FFD280,#F5A623);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;display:block;margin-bottom:.5rem;line-height:1;font-family:'Inter',sans-serif;}
+        .stat-big-card .stitle{font-size:.95rem;font-weight:700;color:white;margin-bottom:.4rem;}
+        .stat-big-card .sdesc{font-size:.82rem;color:rgba(255,255,255,.5);}
+        .stats-note{margin-top:2rem;text-align:center;color:rgba(255,255,255,.4);font-size:.82rem;line-height:1.8;}
+
+        /* ── 團隊背景 ── */
+        .team-section{background:var(--bg-warm);}
+        .company-logos{display:grid;grid-template-columns:repeat(5,1fr);gap:1.2rem;margin-top:2.5rem;}
+        .company-logo{padding:1.4rem 1rem;background:white;border-radius:var(--radius-md);text-align:center;font-weight:700;font-size:.9rem;color:var(--text-secondary);transition:all .3s;border:1px solid var(--neutral-200);box-shadow:var(--shadow-sm);}
+        .company-logo:hover{background:var(--primary);color:white;border-color:var(--primary);transform:translateY(-4px);box-shadow:var(--shadow-cta);}
+        .team-abilities{display:grid;grid-template-columns:repeat(2,1fr);gap:1.5rem;margin-top:3rem;}
+        .ability-card{background:white;border-radius:var(--radius-md);padding:2rem;border:1px solid var(--neutral-200);display:flex;gap:1.2rem;align-items:flex-start;transition:all .3s;box-shadow:var(--shadow-sm);}
+        .ability-card:hover{transform:translateY(-4px);box-shadow:var(--shadow-md);}
+        .ability-icon{width:48px;height:48px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:1.4rem;flex-shrink:0;background:linear-gradient(135deg,rgba(212,97,26,.1),rgba(245,166,35,.12));border:1px solid rgba(212,97,26,.15);}
+        .ability-card h4{font-size:1rem;font-weight:800;color:var(--text-primary);margin-bottom:.5rem;}
+        .ability-card p{font-size:.88rem;color:var(--text-secondary);line-height:1.75;}
+
+        /* ── 適用對象 ── */
+        .target-section{background:var(--bg-section);}
+        .target-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1.2rem;margin-top:4rem;}
+        .target-card{background:white;border-radius:var(--radius-md);padding:1.8rem 1.4rem;border:1px solid var(--neutral-200);text-align:center;transition:all .3s;box-shadow:var(--shadow-sm);}
+        .target-card:hover{transform:translateY(-5px);box-shadow:var(--shadow-md);border-color:var(--primary-light);}
+        .target-emoji{font-size:2.2rem;display:block;margin-bottom:.8rem;}
+        .target-card p{font-size:.9rem;font-weight:600;color:var(--text-secondary);line-height:1.5;}
+        .target-note{margin-top:2.5rem;padding:1.2rem 1.8rem;background:var(--neutral-100);border-radius:var(--radius-sm);border:1px solid var(--neutral-200);font-size:.85rem;color:var(--text-muted);text-align:center;}
+
+        /* ── CTA 表單 ── */
+        .contact-section{background:var(--bg-base);}
+        .contact-wrap{display:grid;grid-template-columns:1fr 1.2fr;gap:5rem;align-items:start;margin-top:4rem;}
+        .contact-info{position:sticky;top:100px;}
+        .contact-info p{color:var(--text-secondary);line-height:1.85;margin-bottom:2.5rem;font-size:1rem;}
+        .contact-features{display:flex;flex-direction:column;gap:1rem;}
+        .cf-item{display:flex;align-items:center;gap:12px;padding:1rem 1.2rem;background:white;border-radius:var(--radius-sm);border:1px solid var(--neutral-200);font-size:.92rem;color:var(--text-secondary);font-weight:500;}
+        .cf-icon{font-size:1.2rem;flex-shrink:0;}
+        .contact-form{background:white;border-radius:var(--radius-lg);padding:3rem;border:1px solid var(--neutral-200);box-shadow:var(--shadow-md);}
+        .form-row{display:grid;grid-template-columns:1fr 1fr;gap:1.2rem;}
+        .form-group{margin-bottom:1.5rem;}
+        .form-group label{display:block;margin-bottom:.5rem;font-weight:600;color:var(--text-primary);font-size:.92rem;}
+        .form-group label .req{color:var(--primary);}
+        .form-group input,.form-group textarea,.form-group select{width:100%;padding:.85rem 1rem;background:var(--bg-section);border:1.5px solid var(--neutral-200);border-radius:var(--radius-sm);color:var(--text-primary);font-family:'Noto Sans TC',sans-serif;font-size:.95rem;transition:all .25s;outline:none;}
+        .form-group input:focus,.form-group textarea:focus,.form-group select:focus{border-color:var(--primary);background:white;box-shadow:0 0 0 4px rgba(212,97,26,.08);}
+        .form-group textarea{min-height:130px;resize:vertical;}
+        .form-group select{appearance:none;cursor:pointer;}
+        .form-submit{width:100%;padding:1rem;background:var(--primary);color:white;border:none;border-radius:var(--radius-sm);font-family:'Noto Sans TC',sans-serif;font-size:1.05rem;font-weight:700;cursor:pointer;transition:all .25s;box-shadow:var(--shadow-cta);}
+        .form-submit:hover{background:var(--primary-dark);transform:translateY(-2px);box-shadow:0 12px 35px rgba(212,97,26,.4);}
+
+        /* ── 頁尾 ── */
+        footer{background:var(--neutral-900);color:rgba(255,255,255,.7);padding:4rem 5% 2rem;}
+        .footer-inner{max-width:1280px;margin:0 auto;}
+        .footer-top{display:grid;grid-template-columns:1.5fr 1fr 1fr;gap:4rem;padding-bottom:3rem;border-bottom:1px solid rgba(255,255,255,.1);margin-bottom:2rem;}
+        .footer-brand .logo-main{color:white;font-size:1.1rem;}
+        .footer-brand .logo-sub{color:rgba(255,255,255,.5);}
+        .footer-brand p{margin-top:1rem;font-size:.88rem;line-height:1.8;color:rgba(255,255,255,.5);max-width:300px;}
+        .footer-col h4{font-size:.88rem;font-weight:700;color:rgba(255,255,255,.9);margin-bottom:1.2rem;letter-spacing:1px;text-transform:uppercase;}
+        .footer-col ul{list-style:none;}
+        .footer-col ul li{margin-bottom:.7rem;}
+        .footer-col ul li a{color:rgba(255,255,255,.5);text-decoration:none;font-size:.88rem;transition:color .2s;}
+        .footer-col ul li a:hover{color:var(--accent-light);}
+        .footer-bottom{display:flex;align-items:center;justify-content:space-between;font-size:.82rem;color:rgba(255,255,255,.3);flex-wrap:wrap;gap:1rem;}
+
+        /* ── 監控 ── */
+        #monitor-toggle{position:fixed;bottom:24px;right:24px;background:var(--primary);color:white;border:none;padding:10px 18px;border-radius:100px;cursor:pointer;font-weight:700;font-size:13px;box-shadow:var(--shadow-cta);z-index:99998;font-family:'Noto Sans TC',sans-serif;transition:all .3s;}
+        #monitor-toggle:hover{background:var(--primary-dark);transform:translateY(-2px);}
+        #debug-monitor{position:fixed;bottom:24px;right:24px;width:380px;max-height:460px;background:white;border:1.5px solid var(--neutral-200);border-radius:var(--radius-lg);padding:1.2rem;z-index:99999;font-family:'Inter',monospace;font-size:12px;color:var(--text-secondary);overflow-y:auto;box-shadow:var(--shadow-lg);display:none;}
+
+        /* ── RWD ── */
+        @media(max-width:1024px){
+            .hero-inner,.contact-wrap{grid-template-columns:1fr;gap:3rem;}
+            .hero-visual{display:none;}
+            .checklist-layout{grid-template-columns:1fr;}
+            .checklist-counter-card{position:static;}
+            .checklist-grid{grid-template-columns:1fr 1fr;}
+            .root-cause-grid,.process-grid{grid-template-columns:1fr;}
+            .solution-pillars{grid-template-columns:1fr;}
+            .stats-4grid{grid-template-columns:repeat(2,1fr);}
+            .team-abilities{grid-template-columns:1fr;}
+            .company-logos{grid-template-columns:repeat(3,1fr);}
+            .target-grid{grid-template-columns:repeat(2,1fr);}
+            .case-real-card,.case-real-card.reverse{grid-template-columns:1fr;}
+            .case-real-card.reverse .case-real-img-wrap{order:0;}
+            .case-real-img{min-height:220px;}
+            .footer-top{grid-template-columns:1fr;gap:2rem;}
+        }
+        @media(max-width:768px){
+            .section-title{font-size:2rem;}
+            .hero-h1{font-size:2.4rem;}
+            .checklist-grid{grid-template-columns:1fr;}
+            .stats-4grid{grid-template-columns:1fr;}
+            .target-grid{grid-template-columns:1fr 1fr;}
+            .form-row{grid-template-columns:1fr;}
+            .contact-info{position:static;}
+            .hero-stats{grid-template-columns:1fr;}
+            .stat-item{border-right:none;border-bottom:1px solid var(--neutral-200);}
+            .stat-item:last-child{border-bottom:none;}
+            .hero-actions{flex-direction:column;}
         }
     </style>
 </head>
 <body>
-    <div class="bg-grid"></div>
 
-    <nav>
-        <div class="container">
-            <div class="logo">森森梧桐 AI</div>
-            <a href="#pricing" class="cta-button">立即開始</a>
-        </div>
-    </nav>
+<!-- ── Nav ── -->
+<nav>
+    <div class="container">
+        <a href="#" class="logo-wrap">
+            <div class="logo-icon">🌳</div>
+            <div class="logo-text">
+                <span class="logo-main">梧桐智能管理顧問</span>
+                <span class="logo-sub">Management Consulting × AI</span>
+            </div>
+        </a>
+        <a href="#contact" class="nav-cta">免費企業診斷</a>
+    </div>
+</nav>
 
-    <section class="hero">
-        <div class="hero-content">
-            <div class="hero-text">
-                <h1>
-                    讓中小企業<br>
-                    <span class="highlight">沒有難用的系統</span>
-                </h1>
-                <p>
-                    由上市櫃企業資深團隊打造，為中小企業量身定制的 N8N 自動化解決方案。
-                    用 AI 點亮轉型之路，讓每個流程都自動運轉。
-                </p>
-                <a href="#journey" class="cta-button" style="font-size: 1.2rem; padding: 1rem 3rem;">
-                    看看其他企業的轉變 →
+<!-- ── Hero ── -->
+<section class="hero">
+    <div class="hero-inner">
+        <div>
+            <div class="hero-badge">
+                <div class="hero-badge-dot"></div>
+                專為 10～100 人中小企業設計的管理升級方案
+            </div>
+            <h1 class="hero-h1">
+                您的企業，<br>
+                是不是也有<span class="hl">這些問題</span>？
+            </h1>
+            <p class="hero-desc">
+                手動報表、資訊四散、員工追不上、中階主管失能……
+                這些問題，正在每天無聲地吞噬您的利潤與時間。
+                <br><br>
+                梧桐智能由台塑、鴻海等大型集團資深主管創立，
+                用「找問題 → 給方法 → 省成本」帶您走出困局。
+            </p>
+            <div class="hero-actions">
+                <a href="#checklist" class="btn-primary">
+                    對照我的企業痛點
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
                 </a>
-
-                <div class="hero-stats">
-                    <div class="stat-item">
-                        <div class="stat-number">95%</div>
-                        <div class="stat-label">工作流自動化率</div>
-                    </div>
-                    <div class="stat-item">
-                        <div class="stat-number">70h</div>
-                        <div class="stat-label">每月節省工時</div>
-                    </div>
-                    <div class="stat-item">
-                        <div class="stat-number">24/7</div>
-                        <div class="stat-label">全天候運行</div>
-                    </div>
-                </div>
+                <a href="#contact" class="btn-outline">預約免費企業診斷</a>
             </div>
-
-            <div class="hero-image">
-                <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&q=80" alt="自動化工作流程" loading="lazy">
-            </div>
-        </div>
-    </section>
-
-    <section id="journey">
-        <div class="journey-section">
-            <div class="section-title">從混亂到高效，只需要三個階段</div>
-            <div class="section-subtitle">
-                超過 50 家中小企業已經走過這段轉型旅程，現在輪到你了
-            </div>
-
-            <div class="journey-timeline">
-                <div class="journey-step">
-                    <img src="https://images.unsplash.com/photo-1553877522-43269d4ea984?w=600&q=80" alt="混亂的辦公室" class="journey-image" loading="lazy">
-                    <span class="journey-phase">第一階段</span>
-                    <h3>每天都在做重複的事</h3>
-                    <p>
-                        「我每天花 3 小時整理訂單資料，再把它們一筆筆輸入進 ERP。
-                        有時候一個錯字，就要全部重來。員工抱怨，我也很無奈。」
-                    </p>
-                    <div class="journey-quote">
-                        — 某製造業老闆的真實心聲
-                    </div>
+            <div class="hero-stats">
+                <div class="stat-item">
+                    <span class="stat-number">15～50%</span>
+                    <span class="stat-label">效率提升範圍</span>
                 </div>
-
-                <div class="journey-step">
-                    <img src="https://images.unsplash.com/photo-1551434678-e076c223a692?w=600&q=80" alt="團隊協作" class="journey-image" loading="lazy">
-                    <span class="journey-phase">第二階段</span>
-                    <h3>系統開始幫我工作</h3>
-                    <p>
-                        「導入 N8N 後，訂單一進來就自動分類、自動進 ERP、自動通知倉管。
-                        我的工作時間從 3 小時變成 10 分鐘檢查就好。」
-                    </p>
-                    <div class="journey-quote">
-                        — 導入後第一個月的回饋
-                    </div>
+                <div class="stat-item">
+                    <span class="stat-number">30～50%</span>
+                    <span class="stat-label">錯誤率降低幅度</span>
                 </div>
-
-                <div class="journey-step">
-                    <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?w=600&q=80" alt="成功慶祝" class="journey-image" loading="lazy">
-                    <span class="journey-phase">第三階段</span>
-                    <h3>把時間留給重要的事</h3>
-                    <p>
-                        「現在我有更多時間拜訪客戶、思考策略。團隊士氣也提升了，
-                        因為他們不用再做那些無聊的重複工作。營收成長 30%。」
-                    </p>
-                    <div class="journey-quote">
-                        — 導入後六個月的成果
-                    </div>
+                <div class="stat-item">
+                    <span class="stat-number">1.5倍</span>
+                    <span class="stat-label">人力產出最高提升</span>
                 </div>
             </div>
         </div>
-    </section>
+        <div class="hero-visual">
+            <div class="hero-card-main">
+                <img src="https://images.unsplash.com/photo-1553877522-43269d4ea984?w=800&q=80" alt="企業管理困境">
+            </div>
+            <div class="hero-card-overlay">
+                <div class="overlay-icon">🔍</div>
+                <div class="overlay-text">
+                    <strong>13 個常見管理痛點</strong>
+                    <span>您中了幾個？</span>
+                </div>
+            </div>
+            <div class="hero-card-badge">✦ 免費診斷，無需費用</div>
+        </div>
+    </div>
+</section>
 
-    <section class="before-after-section">
-        <div class="comparison-container">
-            <div class="section-title">導入自動化前後，差別有多大？</div>
-            <div class="section-subtitle" style="color: var(--text-secondary);">
-                真實企業的對比數據，讓你看見改變的力量
+<!-- ── 痛點 Checklist ── -->
+<section class="section-wrap checklist-section" id="checklist">
+    <div class="section-inner">
+        <div class="section-eyebrow">
+            <div class="eyebrow-line"></div>
+            <span class="eyebrow-text">企業自我診斷</span>
+        </div>
+        <h2 class="section-title">這 13 個問題，<br>您的企業中了幾個？</h2>
+        <p class="section-subtitle">每個被打勾的問題，都代表企業正在流失效率與利潤。</p>
+
+        <div class="checklist-layout reveal">
+            <div class="checklist-groups">
+                <!-- 第一組 -->
+                <div>
+                    <div class="checklist-group-title">📊 資料與報表問題（8項）</div>
+                    <div class="checklist-grid">
+                        <div class="checklist-item" onclick="toggleCheck(this)">
+                            <span class="check-circle">✓</span>
+                            <div class="check-text">
+                                <h4>報表需手動重複輸入</h4>
+                                <p>每次出報表都要花 1～3 小時整理 Excel</p>
+                            </div>
+                        </div>
+                        <div class="checklist-item" onclick="toggleCheck(this)">
+                            <span class="check-circle">✓</span>
+                            <div class="check-text">
+                                <h4>資訊分散四處</h4>
+                                <p>Excel、Word、PPT、紙本並存，找不到資料</p>
+                            </div>
+                        </div>
+                        <div class="checklist-item" onclick="toggleCheck(this)">
+                            <span class="check-circle">✓</span>
+                            <div class="check-text">
+                                <h4>各部門數字對不上</h4>
+                                <p>業務說賣了，財務說沒收到，倉管說沒出貨</p>
+                            </div>
+                        </div>
+                        <div class="checklist-item" onclick="toggleCheck(this)">
+                            <span class="check-circle">✓</span>
+                            <div class="check-text">
+                                <h4>看不到即時營運數據</h4>
+                                <p>月底才知道上個月賺了多少，決策來不及</p>
+                            </div>
+                        </div>
+                        <div class="checklist-item" onclick="toggleCheck(this)">
+                            <span class="check-circle">✓</span>
+                            <div class="check-text">
+                                <h4>人力增加但獲利沒增加</h4>
+                                <p>人越招越多，成本越來越高，業績沒跟著長</p>
+                            </div>
+                        </div>
+                        <div class="checklist-item" onclick="toggleCheck(this)">
+                            <span class="check-circle">✓</span>
+                            <div class="check-text">
+                                <h4>員工無法精準完成交辦</h4>
+                                <p>交代的事三天後才想起，或做出來不是要的</p>
+                            </div>
+                        </div>
+                        <div class="checklist-item" onclick="toggleCheck(this)">
+                            <span class="check-circle">✓</span>
+                            <div class="check-text">
+                                <h4>中階主管不具管理能力</h4>
+                                <p>主管只會做事，不會帶人，成為組織瓶頸</p>
+                            </div>
+                        </div>
+                        <div class="checklist-item" onclick="toggleCheck(this)">
+                            <span class="check-circle">✓</span>
+                            <div class="check-text">
+                                <h4>人員離職，經驗跟著帶走</h4>
+                                <p>老員工一離職，那個業務或流程就跟著崩了</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- 第二組 -->
+                <div>
+                    <div class="checklist-group-title">🔄 流程與溝通問題（5項）</div>
+                    <div class="checklist-grid">
+                        <div class="checklist-item" onclick="toggleCheck(this)">
+                            <span class="check-circle">✓</span>
+                            <div class="check-text">
+                                <h4>工作需不斷人工追蹤</h4>
+                                <p>不追問就不會有進度，追問又很煩，惡性循環</p>
+                            </div>
+                        </div>
+                        <div class="checklist-item" onclick="toggleCheck(this)">
+                            <span class="check-circle">✓</span>
+                            <div class="check-text">
+                                <h4>一直在等待核准或跨部門</h4>
+                                <p>一個報告要過五關，送出去就石沉大海</p>
+                            </div>
+                        </div>
+                        <div class="checklist-item" onclick="toggleCheck(this)">
+                            <span class="check-circle">✓</span>
+                            <div class="check-text">
+                                <h4>溝通成本極高</h4>
+                                <p>Line、Email、電話不斷確認，一件事講五遍</p>
+                            </div>
+                        </div>
+                        <div class="checklist-item" onclick="toggleCheck(this)">
+                            <span class="check-circle">✓</span>
+                            <div class="check-text">
+                                <h4>流程太複雜冗長</h4>
+                                <p>做一件事要過五關斬六將，效率極差</p>
+                            </div>
+                        </div>
+                        <div class="checklist-item" onclick="toggleCheck(this)">
+                            <span class="check-circle">✓</span>
+                            <div class="check-text">
+                                <h4>導入過系統但不好用</h4>
+                                <p>花了幾十萬上系統，最後還是回到 Excel 人工處理</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 結果 Banner -->
+                <div id="checklist-result-banner" class="checklist-result-banner">
+                    <div class="result-banner-text">
+                        <strong>您已確認 <span id="check-result-num">0</span> 個管理漏洞</strong>
+                        <span>這不是偶然，是系統性問題造成的。我們有解法。</span>
+                    </div>
+                    <a href="#contact" class="result-banner-btn">預約免費企業診斷 →</a>
+                </div>
             </div>
 
-            <div class="comparison-grid">
-                <div class="comparison-card before">
-                    <span class="comparison-label before-label">導入前</span>
-                    <h3>手動處理的困境</h3>
-                    <ul class="comparison-list">
-                        <li>每天花 2-4 小時處理資料輸入</li>
-                        <li>人為錯誤率高達 15%</li>
-                        <li>客戶詢問要等 24 小時才能回覆</li>
-                        <li>報表整理需要 3 天時間</li>
-                        <li>員工加班處理行政工作</li>
-                        <li>系統之間無法溝通</li>
+            <!-- 右側計數卡 -->
+            <div class="checklist-counter-card">
+                <span class="counter-big" id="check-counter">0</span>
+                <div class="counter-label">/ 13 個問題已確認</div>
+                <div class="counter-bar-wrap">
+                    <div class="counter-bar" id="counter-bar"></div>
+                </div>
+                <div class="counter-hint">
+                    勾選 <strong>5 個以上</strong>，<br>
+                    代表企業需要系統性改善。<br><br>
+                    點擊符合您情況的問題，<br>
+                    我們將為您量身診斷。
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ── 問題根源 ── -->
+<section class="section-wrap" style="background:var(--bg-base);">
+    <div class="section-inner">
+        <div class="section-eyebrow">
+            <div class="eyebrow-line"></div>
+            <span class="eyebrow-text">問題根源</span>
+        </div>
+        <h2 class="section-title">為什麼這些問題<br>一直存在？</h2>
+        <p class="section-subtitle">不是您的員工不努力，而是缺少正確的「管理架構」與「合適工具」。</p>
+
+        <div class="root-cause-grid reveal">
+            <div class="root-cause-card">
+                <div class="root-icon-wrap">🛠️</div>
+                <div class="root-title">個人工具撐不起團隊規模</div>
+                <p class="root-desc">Excel、Line、Email 本質上是個人工具。當企業超過 20 人，這些工具已無法支撐所需的協作效率——工具沒升級，人再多也只是添亂。</p>
+            </div>
+            <div class="root-cause-card">
+                <div class="root-icon-wrap">🏗️</div>
+                <div class="root-title">制度與流程從未被系統化建立</div>
+                <p class="root-desc">中小企業成長靠老闆個人能量。沒有標準化 SOP、沒有管理制度，每個人做每件事的方法都不同，無法複製、無法傳承。</p>
+            </div>
+            <div class="root-cause-card">
+                <div class="root-icon-wrap">📡</div>
+                <div class="root-title">決策缺乏即時數據支撐</div>
+                <p class="root-desc">沒有即時數據儀表板，所有決策靠感覺、靠報告、靠「開會問」。錯失時機，或做了錯誤決策，代價往往很高。</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ── 解決方案雙柱 ── -->
+<section class="section-wrap solution-section">
+    <div class="section-inner">
+        <div class="section-eyebrow">
+            <div class="eyebrow-line"></div>
+            <span class="eyebrow-text">我們的解法</span>
+        </div>
+        <h2 class="section-title">找問題 → 給方法 → 省成本</h2>
+        <p class="section-subtitle">梧桐智能不只給工具，我們提供「管理顧問 + AI自動化」兩大核心服務，缺一不可。</p>
+
+        <div class="solution-pillars reveal">
+            <div class="pillar-card pillar-a">
+                <span class="pillar-icon-big">🎯</span>
+                <div class="pillar-title">管理顧問服務</div>
+                <div class="pillar-subtitle">解決「人的問題」與「制度的問題」</div>
+                <div class="pillar-divider"></div>
+                <ul class="pillar-list">
+                    <li>企業現況診斷（流程地圖繪製）</li>
+                    <li>管理制度與 SOP 標準化建立</li>
+                    <li>中階主管管理能力培訓</li>
+                    <li>組織分工架構優化設計</li>
+                    <li>問題根源分析書面報告</li>
+                </ul>
+                <div class="pillar-fit">適合：管理混亂、人員問題多的企業</div>
+            </div>
+            <div class="pillar-card pillar-b">
+                <span class="pillar-icon-big">🤖</span>
+                <div class="pillar-title">AI 自動化建置</div>
+                <div class="pillar-subtitle">解決「系統的問題」與「效率的問題」</div>
+                <div class="pillar-divider"></div>
+                <ul class="pillar-list">
+                    <li>自動化流程設計與建置</li>
+                    <li>AI 分析與即時決策儀表板</li>
+                    <li>跨系統資料整合串接</li>
+                    <li>報表自動產生與通知系統</li>
+                    <li>長期成效追蹤與持續優化</li>
+                </ul>
+                <div class="pillar-fit">適合：重複性工作多、報表困難的企業</div>
+            </div>
+        </div>
+        <div class="solution-quote reveal" style="text-align: center; background-color: #1a150e; padding: 40px; border-radius: 15px;">
+    <p style="color: #fcfcfc; font-size: 2rem; margin-bottom: 10px;">
+        企業最大的成本，是
+    </p>
+    <p class="hl" style="color: #b88d4d; font-size: 3.5rem; font-weight: bold; margin: 10px 0;">
+        低效率
+    </p>
+    <p style="color: #f8f8f8; font-size: 2rem; margin-top: 30px; margin-bottom: 10px;">
+        讓 AI 成為您的
+    </p>
+    <p class="hl" style="color: #b88d4d; font-size: 3.5rem; font-weight: bold; margin: 10px 0;">
+        管理副總
+    </p>
+    <div style="color: #ffffff; font-size: 1.5rem; margin-top: 40px;">
+        — 梧桐智能管理顧問公司—
+    </div>
+</div>
+    </div>
+</section>
+
+<!-- ── 六步驟流程 ── -->
+<section class="section-wrap" style="background:var(--bg-base);">
+    <div class="section-inner">
+        <div class="section-eyebrow">
+            <div class="eyebrow-line"></div>
+            <span class="eyebrow-text">服務流程</span>
+        </div>
+        <h2 class="section-title">從診斷到成效<br>六個步驟陪您走完</h2>
+        <p class="section-subtitle">我們不是給個工具就走人，而是從問題出發，全程追蹤成效。</p>
+
+        <div class="process-grid reveal">
+            <div class="process-card">
+                <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?w=600&q=80" alt="問題診斷" loading="lazy">
+                <div class="process-card-body">
+                    <span class="process-badge"><span class="process-num">1</span>問題診斷</span>
+                    <h3>深入了解企業現況</h3>
+                    <p>與核心團隊深度訪談，全面了解現況、問題根源與優先順序。</p>
+                </div>
+            </div>
+            <div class="process-card">
+                <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=600&q=80" alt="痛點分析" loading="lazy">
+                <div class="process-card-body">
+                    <span class="process-badge"><span class="process-num">2</span>痛點分析</span>
+                    <h3>繪製問題地圖</h3>
+                    <p>將訪談結果整理為「問題地圖」，標出最影響效率的關鍵瓶頸。</p>
+                </div>
+            </div>
+            <div class="process-card">
+                <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=600&q=80" alt="架構設計" loading="lazy">
+                <div class="process-card-body">
+                    <span class="process-badge"><span class="process-num">3</span>架構設計</span>
+                    <h3>設計管理與系統藍圖</h3>
+                    <p>針對痛點設計管理制度框架與 AI 自動化架構，與您確認方向後才動工。</p>
+                </div>
+            </div>
+            <div class="process-card">
+                <img src="https://images.unsplash.com/photo-1551434678-e076c223a692?w=600&q=80" alt="AI工具建置" loading="lazy">
+                <div class="process-card-body">
+                    <span class="process-badge"><span class="process-num">4</span>AI工具建置</span>
+                    <h3>實際建置自動化工具</h3>
+                    <p>依設計圖建置自動化流程、資料庫與決策儀表板等數位工具。</p>
+                </div>
+            </div>
+            <div class="process-card">
+                <img src="https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=600&q=80" alt="導入陪跑" loading="lazy">
+                <div class="process-card-body">
+                    <span class="process-badge"><span class="process-num">5</span>導入陪跑</span>
+                    <h3>協助團隊熟悉新系統</h3>
+                    <p>協助您的團隊熟悉新流程，解決導入過程中的阻力與疑問。</p>
+                </div>
+            </div>
+            <div class="process-card">
+                <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=600&q=80" alt="成效追蹤" loading="lazy">
+                <div class="process-card-body">
+                    <span class="process-badge"><span class="process-num">6</span>成效追蹤</span>
+                    <h3>持續優化確保成效</h3>
+                    <p>定期回顧效益數據，持續調整優化，確保長期穩定的改善成果。</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ── 真實案例 ── -->
+<section class="section-wrap cases-section">
+    <div class="section-inner">
+        <div class="section-eyebrow">
+            <div class="eyebrow-line"></div>
+            <span class="eyebrow-text">真實案例</span>
+        </div>
+        <h2 class="section-title">他們曾經有<br>一樣的問題</h2>
+        <p class="section-subtitle">三個真實客戶，從痛點到成果的完整故事。</p>
+
+        <div class="case-real-list reveal">
+            <!-- 案例一：會計事務所 -->
+            <div class="case-real-card">
+                <div class="case-real-img-wrap">
+                    <img src="https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=800&q=80" alt="會計事務所" class="case-real-img" loading="lazy">
+                </div>
+                <div class="case-real-body">
+                    <span class="case-tag">📊 會計事務所</span>
+                    <h3>資料散落各處，中階主管不知道怎麼管人</h3>
+                    <div class="case-problem-label">▼ 導入前的問題</div>
+                    <ul class="case-item-list problem">
+                        <li>客戶資料存在個人電腦，沒有集中管理</li>
+                        <li>行政作業重複處理，每份報告做三遍</li>
+                        <li>主管只會做帳，不知如何管理下屬分工</li>
                     </ul>
-                </div>
-
-                <div class="comparison-card after">
-                    <span class="comparison-label after-label">導入後</span>
-                    <h3>自動化的效率</h3>
-                    <ul class="comparison-list">
-                        <li>資料自動同步，只需 10 分鐘檢查</li>
-                        <li>錯誤率降至 1% 以下</li>
-                        <li>客戶詢問 5 分鐘內自動回覆</li>
-                        <li>報表即時產生，隨時查看</li>
-                        <li>員工準時下班，專注核心業務</li>
-                        <li>所有系統無縫整合</li>
+                    <div class="case-result-label">▲ 導入後的成果</div>
+                    <ul class="case-item-list result">
+                        <li>建立集中式資料庫與 AI 分析系統</li>
+                        <li>行政作業自動化，重複操作大幅減少</li>
+                        <li>分工明確，主管管理能力顯著提升</li>
                     </ul>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section class="testimonials-section">
-        <div class="section-title">聽聽他們怎麼說</div>
-        <div class="section-subtitle">
-            真實客戶的真實回饋，沒有誇大，只有事實
-        </div>
-
-        <div class="testimonials-grid">
-            <div class="testimonial-card">
-                <div class="testimonial-header">
-                    <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200&q=80" alt="客戶頭像" class="testimonial-avatar" loading="lazy">
-                </div>
-                <p class="testimonial-text">
-                    「我們是一家 20 人的貿易公司，之前每天要手動處理上百封詢價信。
-                    現在 N8N 自動幫我分類、建檔、回覆，我們業務團隊可以專心開發新客戶。
-                    半年來營收成長 <span class="highlight-number">40%</span>，這是我沒想到的。」
-                </p>
-                <div class="testimonial-author">
-                    <div class="author-avatar">陳</div>
-                    <div class="author-info">
-                        <h4>陳總經理</h4>
-                        <p>國際貿易公司 | 使用 6 個月</p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="testimonial-card">
-                <div class="testimonial-header">
-                    <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=200&q=80" alt="客戶頭像" class="testimonial-avatar" loading="lazy">
-                </div>
-                <p class="testimonial-text">
-                    「我們製造業最怕出錯，以前人工輸入訂單常常打錯規格，
-                    造成生產線損失。導入自動化後，錯誤率幾乎是零，
-                    而且交期準確率提升到 <span class="highlight-number">98%</span>。客戶滿意度大幅提高。」
-                </p>
-                <div class="testimonial-author">
-                    <div class="author-avatar">林</div>
-                    <div class="author-info">
-                        <h4>林廠長</h4>
-                        <p>精密製造廠 | 使用 8 個月</p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="testimonial-card">
-                <div class="testimonial-header">
-                    <img src="https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=200&q=80" alt="客戶頭像" class="testimonial-avatar" loading="lazy">
-                </div>
-                <p class="testimonial-text">
-                    「最讓我驚訝的是價格。我們之前詢問過其他廠商，
-                    報價都是百萬起跳。森森梧桐團隊用 N8N 幫我們做到一樣的效果，
-                    成本只有 <span class="highlight-number">十分之一</span>。而且他們團隊真的很專業，都是大廠出來的。」
-                </p>
-                <div class="testimonial-author">
-                    <div class="author-avatar">王</div>
-                    <div class="author-info">
-                        <h4>王總監</h4>
-                        <p>電商平台 | 使用 4 個月</p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="testimonial-card">
-                <div class="testimonial-header">
-                    <img src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=200&q=80" alt="客戶頭像" class="testimonial-avatar" loading="lazy">
-                </div>
-                <p class="testimonial-text">
-                    「我們公司只有 8 個人，沒有 IT 部門。
-                    原本很擔心系統出問題沒人會修，但森森梧桐提供的技術支援非常即時，
-                    通常 <span class="highlight-number">半小時</span> 內就能解決問題。讓我很放心。」
-                </p>
-                <div class="testimonial-author">
-                    <div class="author-avatar">張</div>
-                    <div class="author-info">
-                        <h4>張老闆</h4>
-                        <p>設計工作室 | 使用 3 個月</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section>
-        <div class="stats-showcase">
-            <div class="section-title">用數據說話</div>
-            <div class="section-subtitle">
-                這些是我們客戶的真實成果，不是空口承諾
-            </div>
-
-            <div class="stats-grid">
-                <div class="stat-card">
-                    <div class="big-number">70+</div>
-                    <div class="stat-title">小時</div>
-                    <div class="stat-desc">每月平均節省工時</div>
-                </div>
-
-                <div class="stat-card">
-                    <div class="big-number">95%</div>
-                    <div class="stat-title">自動化率</div>
-                    <div class="stat-desc">流程自動化比例</div>
-                </div>
-
-                <div class="stat-card">
-                    <div class="big-number">1%</div>
-                    <div class="stat-title">錯誤率</div>
-                    <div class="stat-desc">從 15% 降至 1%</div>
-                </div>
-
-                <div class="stat-card">
-                    <div class="big-number">3 個月</div>
-                    <div class="stat-title">回本週期</div>
-                    <div class="stat-desc">平均投資回收期</div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section class="case-studies">
-        <div class="section-title">成功案例</div>
-        <div class="section-subtitle">
-            看看這些企業如何透過自動化，實現效率躍升
-        </div>
-
-        <div class="case-grid">
-            <div class="case-item">
-                <img src="https://images.unsplash.com/photo-1556761175-b413da4baf72?w=600&q=80" alt="客服自動化" class="case-image" loading="lazy">
-                <div class="case-content">
-                    <span class="case-industry">電商產業</span>
-                    <h3>從每天 200 封客服信到自動處理</h3>
-                    <p>
-                        某電商平台每天收到大量重複性詢問（訂單查詢、退換貨流程等），
-                        客服團隊疲於應付。我們設計 N8N 工作流，
-                        自動分類郵件並根據關鍵字發送標準回覆，複雜問題才轉人工處理。
-                    </p>
-                    <div class="case-results">
-                        <div class="result-item">
-                            <div class="result-value">5 分鐘</div>
-                            <div class="result-label">平均回覆時間</div>
+                    <div class="case-metrics">
+                        <div class="case-metric">
+                            <span class="case-metric-val">35%</span>
+                            <div class="case-metric-lbl">行政效率提升</div>
                         </div>
-                        <div class="result-item">
-                            <div class="result-value">客滿↑35%</div>
-                            <div class="result-label">滿意度提升</div>
+                        <div class="case-metric">
+                            <span class="case-metric-val">50%</span>
+                            <div class="case-metric-lbl">管理能力提升</div>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <div class="case-item">
-                <div class="case-content">
-                    <span class="case-industry">製造業</span>
-                    <h3>訂單自動同步 ERP，零錯誤率</h3>
-                    <p>
-                        傳統製造業透過 Email 接收訂單後，需人工輸入 ERP 系統，
-                        經常因規格打錯造成生產錯誤。我們建立自動化流程，
-                        訂單郵件自動解析並寫入 ERP，同步通知生產與倉管。
-                    </p>
-                    <div class="case-results">
-                        <div class="result-item">
-                            <div class="result-value">0 次</div>
-                            <div class="result-label">錯誤次數/月</div>
-                        </div>
-                        <div class="result-item">
-                            <div class="result-value">3 小時</div>
-                            <div class="result-label">每日節省時間</div>
-                        </div>
-                    </div>
+            <!-- 案例二：醬料公司 -->
+            <div class="case-real-card reverse">
+                <div class="case-real-img-wrap">
+                    <img src="https://images.unsplash.com/photo-1565793298595-6a879b1d9492?w=800&q=80" alt="食品製造" class="case-real-img" loading="lazy">
                 </div>
-                <img src="https://images.unsplash.com/photo-1565793298595-6a879b1d9492?w=600&q=80" alt="製造業自動化" class="case-image" loading="lazy">
-            </div>
-
-            <div class="case-item">
-                <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=600&q=80" alt="報表自動化" class="case-image" loading="lazy">
-                <div class="case-content">
-                    <span class="case-industry">貿易公司</span>
-                    <h3>即時業績儀表板，隨時掌握營運</h3>
-                    <p>
-                        原本每週製作業績報表需要財務人員花 2 天時間整理 Excel，
-                        數據還是落後一週。現在 N8N 每小時自動抓取銷售數據，
-                        更新 Google Sheets 儀表板，老闆隨時都能看到最新狀況。
-                    </p>
-                    <div class="case-results">
-                        <div class="result-item">
-                            <div class="result-value">24/7</div>
-                            <div class="result-label">即時監控</div>
+                <div class="case-real-body">
+                    <span class="case-tag">🏭 食品製造業（醬料公司）</span>
+                    <h3>少量多樣生產，排程永遠一團亂</h3>
+                    <div class="case-problem-label">▼ 導入前的問題</div>
+                    <ul class="case-item-list problem">
+                        <li>產品品項多，排程靠人工估算常常出錯</li>
+                        <li>庫存與產能無法即時對應，備料不準</li>
+                        <li>換線決策靠老闆感覺，缺乏數據依據</li>
+                    </ul>
+                    <div class="case-result-label">▲ 導入後的成果</div>
+                    <ul class="case-item-list result">
+                        <li>ERP 數據整合分析，AI 提供最佳生產策略</li>
+                        <li>庫存與產能即時可視，備料準確率大幅提升</li>
+                        <li>即時決策是否換線生產，減少等待浪費</li>
+                    </ul>
+                    <div class="case-metrics">
+                        <div class="case-metric">
+                            <span class="case-metric-val">20%</span>
+                            <div class="case-metric-lbl">生產效率提升</div>
                         </div>
-                        <div class="result-item">
-                            <div class="result-value">決策↑50%</div>
-                            <div class="result-label">反應速度</div>
+                        <div class="case-metric">
+                            <span class="case-metric-val">即時</span>
+                            <div class="case-metric-lbl">換線決策速度</div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
 
-    <section>
-        <div class="section-title">解決中小企業的三大痛點</div>
-        <div class="section-subtitle">
-            我們深知中小企業在數位轉型路上的挑戰，提供最適合的自動化解決方案
-        </div>
-
-        <div class="pain-points">
-            <div class="pain-grid">
-                <div class="pain-card">
-                    <div class="pain-icon">⏱️</div>
-                    <div class="pain-title">重複性工作佔據大量時間</div>
-                    <div class="pain-description">
-                        每天花費數小時處理資料輸入、報表整理、郵件回覆等重複性工作。
-                        我們的自動化流程讓您專注於核心業務，將時間投資在真正重要的事情上。
-                    </div>
+            <!-- 案例三：半導體設備商 -->
+            <div class="case-real-card">
+                <div class="case-real-img-wrap">
+                    <img src="https://images.unsplash.com/photo-1518770660439-4636190af475?w=800&q=80" alt="半導體設備" class="case-real-img" loading="lazy">
                 </div>
-
-                <div class="pain-card">
-                    <div class="pain-icon">💰</div>
-                    <div class="pain-title">系統整合成本高昂</div>
-                    <div class="pain-description">
-                        傳統系統整合動輒數十萬甚至百萬費用，中小企業難以負擔。
-                        N8N 開源平台搭配我們的專業服務，以合理成本實現企業級自動化。
-                    </div>
-                </div>
-
-                <div class="pain-card">
-                    <div class="pain-icon">🔧</div>
-                    <div class="pain-title">缺乏技術人才維護系統</div>
-                    <div class="pain-description">
-                        聘請專職 IT 人員成本高，外包廠商響應慢。
-                        我們提供全方位技術支援與定期維護，確保系統穩定運行，讓您無後顧之憂。
+                <div class="case-real-body">
+                    <span class="case-tag">⚡ 半導體設備商</span>
+                    <h3>派工靠師傅經驗，績效無法量化</h3>
+                    <div class="case-problem-label">▼ 導入前的問題</div>
+                    <ul class="case-item-list problem">
+                        <li>派工全靠資深師傅個人判斷，離職就崩潰</li>
+                        <li>優先順序不明確，客戶催工常常插隊</li>
+                        <li>沒有績效指標，無法客觀評估工作品質</li>
+                    </ul>
+                    <div class="case-result-label">▲ 導入後的成果</div>
+                    <ul class="case-item-list result">
+                        <li>建立 AI 派工系統，自動排定優先順序</li>
+                        <li>效益分析模型量化績效，評估有所依據</li>
+                        <li>客戶抱怨大幅減少，服務品質穩定提升</li>
+                    </ul>
+                    <div class="case-metrics">
+                        <div class="case-metric">
+                            <span class="case-metric-val">25%</span>
+                            <div class="case-metric-lbl">派工效率提升</div>
+                        </div>
+                        <div class="case-metric">
+                            <span class="case-metric-val">40%</span>
+                            <div class="case-metric-lbl">客訴數量降低</div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </section>
+    </div>
+</section>
 
-    <section>
-        <div class="team-section">
-            <div class="section-title">來自業界頂尖企業的專業團隊</div>
-            <div class="section-subtitle">
-                我們的成員來自台灣最具代表性的上市櫃企業，擁有豐富的自動化與數位轉型實戰經驗
+<!-- ── 效益數據 ── -->
+<section class="section-wrap stats-dark">
+    <div class="section-inner">
+        <div class="section-eyebrow">
+            <div class="eyebrow-line"></div>
+            <span class="eyebrow-text">實際效益</span>
+        </div>
+        <h2 class="section-title">導入後，企業可以期待什麼？</h2>
+        <p class="section-subtitle">以下為真實客戶案例的效益範圍，非廣告承諾。</p>
+
+        <div class="stats-4grid reveal">
+            <div class="stat-big-card">
+                <span class="big-num">15～50%</span>
+                <div class="stitle">效率提升</div>
+                <div class="sdesc">依流程複雜度與導入深度</div>
             </div>
-
-            <div class="company-logos">
-                <div class="company-logo">鴻海集團</div>
-                <div class="company-logo">友達集團</div>
-                <div class="company-logo">群創集團</div>
-                <div class="company-logo">台塑集團</div>
-                <div class="company-logo">勝美達集團</div>
+            <div class="stat-big-card">
+                <span class="big-num">30～50%</span>
+                <div class="stitle">錯誤率降低</div>
+                <div class="sdesc">自動化取代人工重複作業</div>
             </div>
+            <div class="stat-big-card">
+                <span class="big-num">即時</span>
+                <div class="stitle">決策速度</div>
+                <div class="sdesc">從月報升級為即時儀表板</div>
+            </div>
+            <div class="stat-big-card">
+                <span class="big-num">1.1～1.5x</span>
+                <div class="stitle">人力產出提升</div>
+                <div class="sdesc">同樣人數，輸出更多有效工作</div>
+            </div>
+        </div>
+        <p class="stats-note">以上數據來自真實客戶案例。實際效益依企業規模與導入範疇而有所差異。<br>我們會在診斷後，為您的企業提供個別化的效益預估評估。</p>
+    </div>
+</section>
 
-            <div class="vision-mission">
-                <div class="vision-card">
-                    <h3>🎯 我們的願景</h3>
-                    <p>讓中小企業沒有難用的系統</p>
+<!-- ── 團隊背景 ── -->
+<section class="section-wrap team-section">
+    <div class="section-inner">
+        <div class="section-eyebrow">
+            <div class="eyebrow-line"></div>
+            <span class="eyebrow-text">為何信任我們</span>
+        </div>
+        <h2 class="section-title">來自大型企業的<br>管理實戰經驗</h2>
+        <p class="section-subtitle">我們不是只懂技術的 IT 公司，而是親身在大型企業運營過管理角色的實戰者。</p>
+
+        <div class="company-logos reveal">
+            <div class="company-logo">🏭 台塑集團</div>
+            <div class="company-logo">🔧 鴻海集團</div>
+            <div class="company-logo">🌐 日系大型企業</div>
+            <div class="company-logo">⚙️ 大型集團 ERP</div>
+            <div class="company-logo">👥 15～200人管理</div>
+        </div>
+
+        <div class="team-abilities reveal">
+            <div class="ability-card">
+                <div class="ability-icon">🏭</div>
+                <div>
+                    <h4>工廠與製造管理</h4>
+                    <p>來自台塑、鴻海等大型製造集團，深知生產流程、排程、品質管理的實務運作與管理挑戰。</p>
                 </div>
-                <div class="mission-card">
-                    <h3>🚀 我們的使命</h3>
-                    <p>用 AI 點亮中小企業轉型之路</p>
+            </div>
+            <div class="ability-card">
+                <div class="ability-icon">📊</div>
+                <div>
+                    <h4>ERP 整合實戰</h4>
+                    <p>具備大型 ERP 系統整合與使用經驗，了解資料流、系統介面設計、導入障礙的實際解法。</p>
+                </div>
+            </div>
+            <div class="ability-card">
+                <div class="ability-icon">👔</div>
+                <div>
+                    <h4>中高階管理經驗</h4>
+                    <p>15～200 人團隊的管理實戰，擅長組織架構設計、分工規劃、績效制度建立。</p>
+                </div>
+            </div>
+            <div class="ability-card">
+                <div class="ability-icon">🤖</div>
+                <div>
+                    <h4>跨域 AI 工具應用</h4>
+                    <p>業務、研發、投資等多領域 AI 應用經驗，結合管理需求與技術能力，提供最切實際的解法。</p>
                 </div>
             </div>
         </div>
-    </section>
+    </div>
+</section>
 
-    <section id="pricing">
-        <div class="section-title">選擇最適合您的方案</div>
-        <div class="section-subtitle">
-            彈性方案設計，從入門到企業級，滿足不同階段的自動化需求
+<!-- ── 適用對象 ── -->
+<section class="section-wrap target-section">
+    <div class="section-inner">
+        <div class="section-header-center">
+            <div class="section-eyebrow">
+                <div class="eyebrow-line"></div>
+                <span class="eyebrow-text">適合您嗎？</span>
+            </div>
+            <h2 class="section-title">這七種企業，是我們最能幫助的</h2>
+            <p class="section-subtitle">符合越多，我們能帶來的改變就越顯著。</p>
         </div>
 
-        <div class="pricing-grid">
-            <div class="pricing-card">
-                <div class="plan-name">入門方案</div>
-                <div class="plan-price">
-                    NT$ 15,000
-                    <span>/月</span>
-                </div>
-                <ul class="plan-features">
-                    <li>3 個自動化工作流</li>
-                    <li>基礎系統整合（Email、試算表）</li>
-                    <li>每月 5 小時技術支援</li>
-                    <li>流程設計諮詢</li>
-                    <li>線上教學與文件</li>
-                </ul>
-                <button class="cta-button" onclick="selectPlan('入門方案', 15000)">選擇方案</button>
+        <div class="target-grid reveal">
+            <div class="target-card">
+                <span class="target-emoji">👥</span>
+                <p>10 ～ 100 人規模<br>的中小企業</p>
             </div>
-
-            <div class="pricing-card featured">
-                <div class="plan-name">專業方案</div>
-                <div class="plan-price">
-                    NT$ 35,000
-                    <span>/月</span>
-                </div>
-                <ul class="plan-features">
-                    <li>10 個自動化工作流</li>
-                    <li>進階系統整合（CRM、ERP、資料庫）</li>
-                    <li>每月 15 小時技術支援</li>
-                    <li>AI 智能流程設計</li>
-                    <li>優先客服響應</li>
-                    <li>每季流程優化檢視</li>
-                </ul>
-                <button class="cta-button" onclick="selectPlan('專業方案', 35000)">選擇方案</button>
+            <div class="target-card">
+                <span class="target-emoji">📂</span>
+                <p>資料雜亂分散、<br>找不到資料</p>
             </div>
-
-            <div class="pricing-card">
-                <div class="plan-name">企業方案</div>
-                <div class="plan-price">
-                    客製報價
-                </div>
-                <ul class="plan-features">
-                    <li>無限制工作流數量</li>
-                    <li>全方位系統整合</li>
-                    <li>專屬技術團隊支援</li>
-                    <li>客製化 AI 解決方案</li>
-                    <li>24/7 監控與維護</li>
-                    <li>定期現場訪視與優化</li>
-                    <li>專屬帳戶經理</li>
-                </ul>
-                <button class="cta-button" onclick="contactEnterprise()">聯絡我們</button>
+            <div class="target-card">
+                <span class="target-emoji">📋</span>
+                <p>管理制度不完整、<br>全靠老闆一人撐</p>
+            </div>
+            <div class="target-card">
+                <span class="target-emoji">📊</span>
+                <p>依賴大量人工<br>整理報表</p>
+            </div>
+            <div class="target-card">
+                <span class="target-emoji">🤖</span>
+                <p>想導入 AI<br>但不知從何開始</p>
+            </div>
+            <div class="target-card">
+                <span class="target-emoji">⚡</span>
+                <p>營運忙碌但效率<br>始終無法提升</p>
+            </div>
+            <div class="target-card">
+                <span class="target-emoji">💪</span>
+                <p>想提升人均產值、<br>以少做多</p>
             </div>
         </div>
-    </section>
+        <p class="target-note">💡 如果您的企業超過 500 人，或已有完整 IT 部門，我們可能不是最適合的選擇。梧桐智能專注服務 10～100 人的中小企業。</p>
+    </div>
+</section>
 
-    <section>
-        <div class="contact-section">
-            <div class="section-title">立即開始您的自動化旅程</div>
-            <div class="section-subtitle">
-                填寫表單，我們將在 24 小時內與您聯繫，提供免費諮詢服務
+<!-- ── CTA 表單 ── -->
+<section class="section-wrap contact-section" id="contact">
+    <div class="section-inner">
+        <div class="section-eyebrow">
+            <div class="eyebrow-line"></div>
+            <span class="eyebrow-text">下一步</span>
+        </div>
+        <h2 class="section-title">預約一次免費的<br>企業診斷</h2>
+
+        <div class="contact-wrap">
+            <div class="contact-info">
+                <p>填寫表單，我們的顧問將在 <strong>24 小時內</strong>與您聯繫，安排一次 60 分鐘的免費企業健診。</p>
+                <div class="contact-features">
+                    <div class="cf-item"><span class="cf-icon">📞</span>免費診斷，不收任何費用</div>
+                    <div class="cf-item"><span class="cf-icon">📋</span>診斷後提供書面問題分析報告</div>
+                    <div class="cf-item"><span class="cf-icon">⚡</span>24 小時內回覆，快速響應</div>
+                    <div class="cf-item"><span class="cf-icon">🔒</span>嚴格保護您的商業資訊隱私</div>
+                </div>
             </div>
 
             <form class="contact-form" id="contactForm" onsubmit="handleSubmit(event)">
-                <div class="form-group">
-                    <label for="company">公司名稱 *</label>
-                    <input type="text" id="company" name="company" required>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="company">公司名稱 <span class="req">*</span></label>
+                        <input type="text" id="company" name="company" placeholder="梧桐股份有限公司" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="name">聯絡人姓名 <span class="req">*</span></label>
+                        <input type="text" id="name" name="name" placeholder="王小明" required>
+                    </div>
                 </div>
-
-                <div class="form-group">
-                    <label for="name">聯絡人姓名 *</label>
-                    <input type="text" id="name" name="name" required>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="email">電子郵件 <span class="req">*</span></label>
+                        <input type="email" id="email" name="email" placeholder="contact@company.com" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="phone">聯絡電話</label>
+                        <input type="tel" id="phone" name="phone" placeholder="0912-345-678">
+                    </div>
                 </div>
-
                 <div class="form-group">
-                    <label for="email">電子郵件 *</label>
-                    <input type="email" id="email" name="email" required>
+                    <label for="interest">最迫切想解決的問題</label>
+                    <select id="interest" name="interest">
+                        <option value="">請選擇（可不填）</option>
+                        <option value="報表與資料管理">報表雜亂、資料分散難整合</option>
+                        <option value="流程與效率問題">流程複雜、效率低落、重複作業</option>
+                        <option value="管理與人員問題">管理制度不健全、人員問題多</option>
+                        <option value="AI導入">想導入 AI 但不知從何開始</option>
+                        <option value="全面評估">希望全面評估企業現況</option>
+                    </select>
                 </div>
-
                 <div class="form-group">
-                    <label for="phone">聯絡電話</label>
-                    <input type="tel" id="phone" name="phone">
+                    <label for="message">需求說明</label>
+                    <textarea id="message" name="message" placeholder="請簡述您目前最頭痛的企業問題，或您想改善的具體場景…"></textarea>
                 </div>
-
-                <div class="form-group">
-                    <label for="message">您的需求說明</label>
-                    <textarea id="message" name="message" placeholder="請簡述您希望自動化的流程或遇到的問題..."></textarea>
-                </div>
-
-                <button type="submit" class="cta-button" style="width: 100%; font-size: 1.1rem;">
-                    送出諮詢需求
-                </button>
+                <button type="submit" class="form-submit">預約免費企業診斷 →</button>
             </form>
         </div>
-    </section>
-
-    <footer>
-        <p>&copy; <span id="current-year"></span> 森森梧桐 AI 自動化解決方案 | 讓中小企業沒有難用的系統</p>
-        <p style="margin-top: 1rem; font-size: 0.9rem;">
-            團隊成員來自：鴻海集團 | 友達集團 | 群創集團 | 台塑集團 | 日商勝美達集團
-        </p>
-    </footer>
-    <script>
-        document.getElementById('current-year').innerText = new Date().getFullYear();
-    </script>
-
-    
-    <button id="monitor-toggle" style="position: fixed; bottom: 20px; right: 20px; background: linear-gradient(135deg, #F97316, #06B6D4); color: white; border: none; padding: 12px 20px; border-radius: 50px; cursor: pointer; font-weight: bold; font-size: 14px; box-shadow: 0 4px 15px rgba(249, 115, 22, 0.4); z-index: 99998; font-family: 'Noto Sans TC', sans-serif; transition: all 0.3s ease;">
-        🔍 開啟監控
-    </button>
-    
-    <div id="debug-monitor" style="position: fixed; bottom: 20px; right: 20px; width: 400px; max-height: 500px; background: rgba(15, 23, 42, 0.98); border: 2px solid #F97316; border-radius: 12px; padding: 15px; z-index: 99999; font-family: 'JetBrains Mono', monospace; font-size: 12px; color: #CBD5E1; overflow-y: auto; box-shadow: 0 10px 40px rgba(249, 115, 22, 0.4); display: none;">
-        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; padding-bottom: 10px; border-bottom: 1px solid #334155;">
-            <div style="font-weight: bold; color: #F97316; font-size: 14px;">📊 系統監控面板</div>
-            <button id="monitor-close" style="background: #ef4444; color: white; border: none; padding: 4px 12px; border-radius: 4px; cursor: pointer; font-size: 11px;">關閉</button>
-        </div>
-        <div id="monitor-logs" style="min-height: 100px;"></div>
-        <button id="monitor-clear" style="width: 100%; background: #334155; color: white; border: none; padding: 8px; border-radius: 6px; cursor: pointer; margin-top: 10px; font-size: 11px;">清除記錄</button>
     </div>
+</section>
 
-    <script>
-        // ============================================
-        // 監控系統
-        // ============================================
-        
-        let monitorLogs = [];
-        
-        function addMonitorLog(message, type) {
-            if (!type) type = 'info';
-            const now = new Date();
-            const timestamp = now.getHours().toString().padStart(2, '0') + ':' + now.getMinutes().toString().padStart(2, '0') + ':' + now.getSeconds().toString().padStart(2, '0');
-            monitorLogs.push({ timestamp: timestamp, message: message, type: type });
-            updateMonitorDisplay();
-        }
-        
-        function updateMonitorDisplay() {
-            const container = document.getElementById('monitor-logs');
-            if (!container) return;
-            let html = '';
-            for (let i = 0; i < monitorLogs.length; i++) {
-                const log = monitorLogs[i];
-                let borderColor = '#64748b';
-                let bgColor = 'rgba(51, 65, 85, 0.3)';
-                if (log.type === 'success') {
-                    borderColor = '#10b981';
-                    bgColor = 'rgba(16, 185, 129, 0.1)';
-                } else if (log.type === 'error') {
-                    borderColor = '#ef4444';
-                    bgColor = 'rgba(239, 68, 68, 0.1)';
-                } else if (log.type === 'info') {
-                    borderColor = '#06B6D4';
-                    bgColor = 'rgba(6, 182, 212, 0.1)';
-                }
-                html += '<div style="padding: 6px 8px; margin: 4px 0; border-radius: 4px; border-left: 3px solid ' + borderColor + '; background: ' + bgColor + '; line-height: 1.5;"><span style="color: #64748b; font-size: 10px; margin-right: 8px;">' + log.timestamp + '</span>' + log.message + '</div>';
-            }
-            container.innerHTML = html;
-            container.scrollTop = container.scrollHeight;
-        }
-        
-        function toggleMonitor() {
-            const monitor = document.getElementById('debug-monitor');
-            const toggle = document.getElementById('monitor-toggle');
-            if (!monitor || !toggle) return;
-            if (monitor.style.display === 'none' || monitor.style.display === '') {
-                monitor.style.display = 'block';
-                toggle.style.display = 'none';
-                addMonitorLog('監控面板已開啟', 'info');
-            } else {
-                monitor.style.display = 'none';
-                toggle.style.display = 'block';
-            }
-        }
-        
-        function clearMonitorLogs() {
-            monitorLogs = [];
-            updateMonitorDisplay();
-            addMonitorLog('記錄已清除', 'info');
-        }
-        
-        document.addEventListener('DOMContentLoaded', function() {
-            const toggleBtn = document.getElementById('monitor-toggle');
-            const closeBtn = document.getElementById('monitor-close');
-            const clearBtn = document.getElementById('monitor-clear');
-            if (toggleBtn) toggleBtn.addEventListener('click', toggleMonitor);
-            if (closeBtn) closeBtn.addEventListener('click', toggleMonitor);
-            if (clearBtn) clearBtn.addEventListener('click', clearMonitorLogs);
-            addMonitorLog('系統已載入', 'success');
-        });
-        
-        // ============================================
-        // 方案選擇處理
-        // ============================================
-        
-        function selectPlan(planName, price) {
-            addMonitorLog('用戶點擊: ' + planName + ' (NT$ ' + price.toLocaleString() + ')', 'info');
-            const contactSection = document.querySelector('#contactForm');
-            const messageBox = document.querySelector('#message');
-            if (!contactSection || !messageBox) {
-                addMonitorLog('錯誤: 找不到表單元素', 'error');
-                return;
-            }
-            const prefillMessage = '你好，我對「' + planName + '」感興趣 (預算: NT$ ' + price.toLocaleString() + '/月)。\n我想了解更多付款方式與詳細導入流程。';
-            messageBox.value = prefillMessage;
-            contactSection.scrollIntoView({ behavior: 'smooth', block: 'center' });
-            messageBox.style.transition = 'background-color 0.3s';
-            messageBox.style.backgroundColor = 'rgba(249, 115, 22, 0.2)';
-            setTimeout(function() {
-                messageBox.style.backgroundColor = 'var(--primary-dark)';
-            }, 500);
-            try {
-                sessionStorage.setItem('selectedPlan', JSON.stringify({ planName: planName, price: price }));
-                addMonitorLog('✓ 方案已儲存到 sessionStorage', 'success');
-            } catch (e) {
-                addMonitorLog('✗ 儲存失敗: ' + e.message, 'error');
-            }
-            showPlanSelectedNotification(planName, price);
-        }
-        
-        function showPlanSelectedNotification(planName, price) {
-            const notification = document.createElement('div');
-            notification.style.cssText = 'position: fixed; top: 100px; right: 20px; background: linear-gradient(135deg, #F97316, #06B6D4); color: white; padding: 20px 30px; border-radius: 10px; box-shadow: 0 4px 15px rgba(249, 115, 22, 0.3); z-index: 9999; font-family: "Noto Sans TC", sans-serif; animation: slideInRight 0.3s ease;';
-            notification.innerHTML = '<div style="display: flex; align-items: center; gap: 15px;"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><path d="M9 11l3 3L22 4" stroke-linecap="round" stroke-linejoin="round"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11" stroke-linecap="round" stroke-linejoin="round"/></svg><div><div style="font-weight: bold; font-size: 1.1em;">' + planName + ' 已選擇</div><div style="font-size: 0.9em; opacity: 0.9;">NT$ ' + price.toLocaleString() + ' / 月</div><div style="font-size: 0.85em; margin-top: 5px;">請填寫下方表單完成申請</div></div></div>';
-            document.body.appendChild(notification);
-            setTimeout(function() {
-                notification.style.animation = 'slideOutRight 0.3s ease';
-                setTimeout(function() { notification.remove(); }, 300);
-            }, 3000);
-        }
-        
-        function contactEnterprise() {
-            addMonitorLog('用戶點擊企業方案', 'info');
-            const contactSection = document.querySelector('#contactForm');
-            const messageBox = document.querySelector('#message');
-            if (!contactSection || !messageBox) {
-                addMonitorLog('錯誤: 找不到表單元素', 'error');
-                return;
-            }
-            messageBox.value = '你好，我們是大型企業/機構，有客製化自動化流程的需求，希望能安排顧問諮詢。';
-            contactSection.scrollIntoView({ behavior: 'smooth', block: 'center' });
-            try {
-                sessionStorage.setItem('selectedPlan', JSON.stringify({ planName: '企業方案', price: 0 }));
-                addMonitorLog('✓ 企業方案已儲存', 'success');
-            } catch (e) {
-                addMonitorLog('✗ 儲存失敗: ' + e.message, 'error');
-            }
-            showPlanSelectedNotification('企業方案', '客製報價');
-        }
-        
-        // ============================================
-        // 表單提交處理
-        // ============================================
-        
-        async function handleSubmit(event) {
-            event.preventDefault();
-            addMonitorLog('開始處理表單送出', 'info');
-            
-            const submitBtn = event.target.querySelector('button[type="submit"]');
-            const originalBtnText = submitBtn.innerText;
-            
-            // ==========================================
-            // 🕒 時間格式化修正 (UTC+8 台灣時間)
-            // ==========================================
-            const now = new Date();
-            // 1. 取得 UTC 時間 (清除使用者本地時區影響)
-            const utc = now.getTime() + (now.getTimezoneOffset() * 60000);
-            // 2. 加上 8 小時 (台灣時區)
-            const taiwanDate = new Date(utc + (3600000 * 8));
-            
-            // 3. 格式化為 YYYY-MM-DD HH:mm:ss
-            const taiwanTimeStr = taiwanDate.getFullYear() + '-' +
-                String(taiwanDate.getMonth() + 1).padStart(2, '0') + '-' +
-                String(taiwanDate.getDate()).padStart(2, '0') + ' ' +
-                String(taiwanDate.getHours()).padStart(2, '0') + ':' +
-                String(taiwanDate.getMinutes()).padStart(2, '0') + ':' +
-                String(taiwanDate.getSeconds()).padStart(2, '0');
+<!-- ── 頁尾 ── -->
+<footer>
+    <div class="footer-inner">
+        <div class="footer-top">
+            <div class="footer-brand">
+                <div class="logo-wrap" style="margin-bottom:1rem;">
+                    <div class="logo-icon">🌳</div>
+                    <div class="logo-text">
+                        <span class="logo-main">梧桐智能管理顧問公司</span>
+                        <span class="logo-sub">Management Consulting × AI</span>
+                    </div>
+                </div>
+                <p>由台塑、鴻海等大型集團資深主管創立，專為 10～100 人中小企業提供管理顧問 + AI自動化升級服務。讓天下沒有難用的系統。</p>
+            </div>
+            <div class="footer-col">
+                <h4>服務項目</h4>
+                <ul>
+                    <li><a href="#">企業管理健診</a></li>
+                    <li><a href="#">AI 自動化建置</a></li>
+                    <li><a href="#">管理制度設計</a></li>
+                    <li><a href="#">成效追蹤輔導</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>聯絡資訊</h4>
+                <ul>
+                    <li><a href="#">📧 contact@wutong-ai.com</a></li>
+                    <li><a href="#">📞 0912-345-678</a></li>
+                    <li><a href="#">📍 台北市信義區</a></li>
+                    <li><a href="#contact">預約免費診斷</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <span>&copy; <span id="current-year"></span> 梧桐智能管理顧問公司｜讓天下沒有難用的系統</span>
+            <span>成員來自：台塑 | 鴻海 | 日系企業</span>
+        </div>
+    </div>
+</footer>
 
-            // ==========================================
-            
-            const formData = new FormData(event.target);
-            const data = {
-                company: formData.get('company'),
-                name: formData.get('name'),
-                email: formData.get('email'),
-                phone: formData.get('phone') || '未提供',
-                message: formData.get('message') || '未填寫',
-                submitTime: taiwanTimeStr, // ✅ 使用修正後的台灣時間
-                source: '森森梧桐官網'
-            };
-            
-            addMonitorLog('表單資料: ' + data.name + ' / ' + data.email, 'info');
-            
-            const selectedPlan = sessionStorage.getItem('selectedPlan');
-            let hasPlanSelection = false;
-            
-            if (selectedPlan) {
-                try {
-                    const planData = JSON.parse(selectedPlan);
-                    data.selectedPlan = planData.planName;
-                    data.selectedPrice = planData.price;
-                    hasPlanSelection = true;
-                    addMonitorLog('✓ 偵測到方案: ' + planData.planName, 'success');
-                } catch (e) {
-                    addMonitorLog('✗ 解析方案失敗: ' + e.message, 'error');
-                }
-            } else {
-                addMonitorLog('無方案選擇（一般諮詢）', 'info');
-            }
-            
-            submitBtn.disabled = true;
-            submitBtn.innerHTML = '<span style="display: inline-flex; align-items: center; gap: 8px;"><svg style="animation: spin 1s linear infinite; width: 16px; height: 16px;" viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="12" cy="12" r="10" stroke-width="4" stroke-dasharray="32" stroke-linecap="round"/></svg>送出中...</span>';
-            
-            try {
-                if (hasPlanSelection) {
-                    addMonitorLog('→ 發送到 Workflow 2（方案購買）', 'info');
-                    addMonitorLog('→ 發送到 Workflow 1（諮詢表單）', 'info');
-                    
-                    const responses = await Promise.all([
-                        fetch('https://wiselife.zeabur.app/webhook/plan-purchase', {
-                            method: 'POST',
-                            headers: { 'Content-Type': 'application/json' },
-                            body: JSON.stringify({
-                                planName: data.selectedPlan,
-                                price: data.selectedPrice,
-                                email: data.email,
-                                name: data.name,
-                                company: data.company,
-                                phone: data.phone,
-                                message: data.message,
-                                submitTime: data.submitTime // ✅ 傳送台灣時間
-                            })
-                        }),
-                        fetch('https://wiselife.zeabur.app/webhook/contact-form', {
-                            method: 'POST',
-                            headers: { 'Content-Type': 'application/json' },
-                            body: JSON.stringify(data)
-                        })
-                    ]);
-                    
-                    addMonitorLog('✓ Workflow 2 狀態: ' + responses[0].status, responses[0].ok ? 'success' : 'error');
-                    addMonitorLog('✓ Workflow 1 狀態: ' + responses[1].status, responses[1].ok ? 'success' : 'error');
-                    
-                    if (!responses[0].ok || !responses[1].ok) {
-                        throw new Error('部分 Workflow 失敗');
-                    }
-                    
-                    let orderNumber = null;
-                    try {
-                        const purchaseData = await responses[0].json();
-                        if (purchaseData && purchaseData.orderNumber) {
-                            orderNumber = purchaseData.orderNumber;
-                            addMonitorLog('✓ 訂單編號: ' + orderNumber, 'success');
-                        }
-                    } catch (e) {
-                        addMonitorLog('✗ 取得訂單編號失敗: ' + e.message, 'error');
-                    }
-                    
-                    sessionStorage.removeItem('selectedPlan');
-                    addMonitorLog('✓ sessionStorage 已清除', 'success');
-                    
-                    showSuccessMessageWithPlan(data.name, data.selectedPlan, data.selectedPrice, orderNumber);
-                    
-                } else {
-                    addMonitorLog('→ 只發送到 Workflow 1（一般諮詢）', 'info');
-                    
-                    const response = await fetch('https://wiselife.zeabur.app/webhook/contact-form', {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify(data)
-                    });
-                    
-                    addMonitorLog('✓ Workflow 1 狀態: ' + response.status, response.ok ? 'success' : 'error');
-                    
-                    if (!response.ok) {
-                        throw new Error('HTTP ' + response.status);
-                    }
-                    
-                    showSuccessMessage(data.name);
-                }
-                
-                event.target.reset();
-                addMonitorLog('✓ 表單送出成功', 'success');
-                
-            } catch (error) {
-                addMonitorLog('✗ 錯誤: ' + error.message, 'error');
-                showErrorMessage(error.message);
-            } finally {
-                submitBtn.disabled = false;
-                submitBtn.innerHTML = originalBtnText;
-            }
+<button id="monitor-toggle">🔍 開啟監控</button>
+<div id="debug-monitor">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;padding-bottom:10px;border-bottom:1px solid var(--neutral-200);">
+        <div style="font-weight:bold;color:var(--primary);font-size:14px;">📊 系統監控（A版）</div>
+        <button id="monitor-close" style="background:var(--danger);color:white;border:none;padding:4px 12px;border-radius:4px;cursor:pointer;font-size:11px;">關閉</button>
+    </div>
+    <div id="monitor-logs" style="min-height:100px;font-size:11px;"></div>
+    <button id="monitor-clear" style="width:100%;background:var(--bg-section);color:var(--text-secondary);border:1px solid var(--neutral-200);padding:8px;border-radius:6px;cursor:pointer;margin-top:10px;font-size:11px;">清除記錄</button>
+</div>
+
+<script>
+    document.getElementById('current-year').innerText = new Date().getFullYear();
+
+    // ── 滾動動畫 ──
+    const revealEls = document.querySelectorAll('.reveal');
+    new IntersectionObserver((entries) => {
+        entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); } });
+    }, { threshold: 0.08 }).observe ? revealEls.forEach(el => {
+        new IntersectionObserver((entries) => {
+            entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); } });
+        }, { threshold: 0.08 }).observe(el);
+    }) : null;
+
+    // ── Checklist 互動 ──
+    function toggleCheck(item) {
+        item.classList.toggle('checked');
+        updateCheckedCount();
+    }
+
+    function updateCheckedCount() {
+        const count = document.querySelectorAll('.checklist-item.checked').length;
+        const counterEl = document.getElementById('check-counter');
+        const barEl = document.getElementById('counter-bar');
+        const bannerEl = document.getElementById('checklist-result-banner');
+        const resultNumEl = document.getElementById('check-result-num');
+        if (counterEl) counterEl.textContent = count;
+        if (barEl) barEl.style.width = Math.min(count / 13 * 100, 100) + '%';
+        if (count >= 5 && bannerEl) {
+            bannerEl.style.display = 'flex';
+            if (resultNumEl) resultNumEl.textContent = count;
         }
-        
-        function showSuccessMessageWithPlan(name, planName, price, orderNumber) {
-            const modal = document.createElement('div');
-            modal.style.cssText = 'position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.8); display: flex; align-items: center; justify-content: center; z-index: 10000; animation: fadeIn 0.3s ease;';
-            
-            const priceText = price === 0 ? '客製報價' : 'NT$ ' + price.toLocaleString() + ' / 月';
-            
-            let orderNumberHTML = '';
-            if (orderNumber) {
-                orderNumberHTML = '<div style="background: rgba(6, 182, 212, 0.1); padding: 18px; border-radius: 10px; margin: 20px 0; border: 2px solid #06B6D4;"><div style="color: #06B6D4; font-size: 0.85em; margin-bottom: 8px; font-weight: 600;">📋 訂單編號</div><div style="color: #F8FAFC; font-size: 1.4em; font-weight: bold; font-family: \'JetBrains Mono\', monospace; letter-spacing: 1px;">' + orderNumber + '</div><div style="color: #94A3B8; font-size: 0.75em; margin-top: 8px;">請保存此編號以便查詢訂單狀態</div></div>';
-            }
-            
-            modal.innerHTML = '<div style="background: linear-gradient(135deg, #1E293B, #334155); padding: 3rem; border-radius: 20px; max-width: 550px; width: 90%; text-align: center; border: 2px solid #F97316; box-shadow: 0 20px 60px rgba(249, 115, 22, 0.3); animation: slideUp 0.3s ease;"><div style="width: 80px; height: 80px; background: linear-gradient(135deg, #F97316, #06B6D4); border-radius: 50%; margin: 0 auto 1.5rem; display: flex; align-items: center; justify-content: center;"><svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3"><path d="M5 13l4 4L19 7" stroke-linecap="round" stroke-linejoin="round"/></svg></div><h2 style="color: #F8FAFC; font-size: 2rem; margin-bottom: 1rem; font-weight: 900;">🎉 申請成功！</h2>' + orderNumberHTML + '<div style="background: rgba(249, 115, 22, 0.1); padding: 20px; border-radius: 12px; margin: 20px 0; border: 2px dashed #F97316;"><div style="color: #F97316; font-size: 1.3em; font-weight: bold; margin-bottom: 10px;">' + planName + '</div><div style="color: #CBD5E1; font-size: 1.1em;">' + priceText + '</div></div><p style="color: #CBD5E1; font-size: 1rem; line-height: 1.8; margin-bottom: 2rem;">' + name + '，感謝您選擇<strong style="color: #F97316;">' + planName + '</strong>！<br><br>我們已發送詳細的方案資訊與付款方式到您的信箱。<br>專業顧問將在 <strong style="color: #06B6D4;">24 小時內</strong>與您聯繫。</p><div style="background: #fff3cd; padding: 15px; border-radius: 8px; margin: 20px 0; color: #856404; font-size: 0.9em;">💡 請留意來電 <strong>0912-345-678</strong> 或查看 Email</div><button onclick="this.parentElement.parentElement.remove()" style="background: #F97316; color: white; border: none; padding: 1rem 3rem; border-radius: 10px; font-size: 1.1rem; font-weight: 700; cursor: pointer; font-family: \'Noto Sans TC\', sans-serif;" onmouseover="this.style.background=\'#EA580C\'" onmouseout="this.style.background=\'#F97316\'">完成</button></div>';
-            
-            document.body.appendChild(modal);
-            
-            setTimeout(function() {
-                if (document.body.contains(modal)) {
-                    modal.style.animation = 'fadeOut 0.3s ease';
-                    setTimeout(function() { modal.remove(); }, 300);
-                }
-            }, 10000);
+        addMonitorLog('痛點勾選更新：' + count + ' / 13', 'info');
+    }
+
+    // ── 監控系統 ──
+    let monitorLogs = [];
+    function addMonitorLog(message, type) {
+        if (!type) type = 'info';
+        const now = new Date();
+        const ts = String(now.getHours()).padStart(2,'0') + ':' + String(now.getMinutes()).padStart(2,'0') + ':' + String(now.getSeconds()).padStart(2,'0');
+        monitorLogs.push({ ts, message, type });
+        updateMonitorDisplay();
+    }
+    function updateMonitorDisplay() {
+        const c = document.getElementById('monitor-logs');
+        if (!c) return;
+        const colors = { success:{border:'#3A9E6A',bg:'rgba(58,158,106,0.08)',text:'#1C7A52'}, error:{border:'#D94040',bg:'rgba(217,64,64,0.08)',text:'#B03030'}, info:{border:'#D4611A',bg:'rgba(212,97,26,0.06)',text:'#7C4A2D'} };
+        c.innerHTML = monitorLogs.map(l => {
+            const col = colors[l.type] || colors.info;
+            return `<div style="padding:5px 8px;margin:3px 0;border-radius:4px;border-left:3px solid ${col.border};background:${col.bg};line-height:1.5;"><span style="color:#8C7B6A;font-size:10px;margin-right:8px;">${l.ts}</span><span style="color:${col.text};">${l.message}</span></div>`;
+        }).join('');
+        c.scrollTop = c.scrollHeight;
+    }
+    function toggleMonitor() {
+        const m = document.getElementById('debug-monitor'), t = document.getElementById('monitor-toggle');
+        if (!m || !t) return;
+        if (m.style.display === 'none' || !m.style.display) { m.style.display='block'; t.style.display='none'; addMonitorLog('監控面板已開啟','info'); }
+        else { m.style.display='none'; t.style.display='block'; }
+    }
+
+    // ── 表單送出 ──
+    function getTaiwanTime() {
+        const now = new Date();
+        const utc = now.getTime() + now.getTimezoneOffset() * 60000;
+        const tw = new Date(utc + 3600000 * 8);
+        return tw.getFullYear() + '-' + String(tw.getMonth()+1).padStart(2,'0') + '-' + String(tw.getDate()).padStart(2,'0') + ' ' + String(tw.getHours()).padStart(2,'0') + ':' + String(tw.getMinutes()).padStart(2,'0') + ':' + String(tw.getSeconds()).padStart(2,'0');
+    }
+
+    async function handleSubmit(event) {
+        event.preventDefault();
+        const submitBtn = event.target.querySelector('button[type="submit"]');
+        const origText = submitBtn.innerText;
+        const formData = new FormData(event.target);
+        const checkedCount = document.querySelectorAll('.checklist-item.checked').length;
+        const data = {
+            company: formData.get('company'),
+            name: formData.get('name'),
+            email: formData.get('email'),
+            phone: formData.get('phone') || '',
+            interest: formData.get('interest') || '未選擇',
+            message: formData.get('message') || '',
+            submitTime: getTaiwanTime(),
+            pageVersion: 'A-pain-driven',
+            checkedCount: checkedCount,
+            source: '梧桐智能管理顧問官網'
+        };
+        addMonitorLog('開始處理表單（A版）, 痛點數:' + checkedCount, 'info');
+        submitBtn.disabled = true;
+        submitBtn.innerText = '送出中...';
+        try {
+            const res = await fetch('https://wiselife.zeabur.app/webhook/contact-form', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(data)
+            });
+            addMonitorLog('Webhook 狀態: ' + res.status, res.ok ? 'success' : 'error');
+            if (!res.ok) throw new Error('HTTP ' + res.status);
+            event.target.reset();
+            showSuccessMessage(data.name);
+            addMonitorLog('✓ 表單送出成功', 'success');
+        } catch (err) {
+            addMonitorLog('✗ 錯誤: ' + err.message, 'error');
+            showErrorMessage(err.message);
+        } finally {
+            submitBtn.disabled = false;
+            submitBtn.innerText = origText;
         }
-        
-        function showSuccessMessage(name) {
-            const modal = document.createElement('div');
-            modal.style.cssText = 'position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.8); display: flex; align-items: center; justify-content: center; z-index: 10000; animation: fadeIn 0.3s ease;';
-            modal.innerHTML = '<div style="background: linear-gradient(135deg, #1E293B, #334155); padding: 3rem; border-radius: 20px; max-width: 500px; width: 90%; text-align: center; border: 2px solid #F97316; box-shadow: 0 20px 60px rgba(249, 115, 22, 0.3); animation: slideUp 0.3s ease;"><div style="width: 80px; height: 80px; background: linear-gradient(135deg, #F97316, #06B6D4); border-radius: 50%; margin: 0 auto 1.5rem; display: flex; align-items: center; justify-content: center;"><svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3"><path d="M5 13l4 4L19 7" stroke-linecap="round" stroke-linejoin="round"/></svg></div><h2 style="color: #F8FAFC; font-size: 2rem; margin-bottom: 1rem; font-weight: 900;">感謝您的諮詢！</h2><p style="color: #CBD5E1; font-size: 1.1rem; line-height: 1.8; margin-bottom: 2rem;">' + name + '，您的需求已成功送出！<br>我們已發送確認郵件至您的信箱。<br><br><strong style="color: #F97316;">專業顧問將在 24 小時內與您聯繫</strong></p><button onclick="this.parentElement.parentElement.remove()" style="background: #F97316; color: white; border: none; padding: 1rem 3rem; border-radius: 10px; font-size: 1.1rem; font-weight: 700; cursor: pointer; font-family: \'Noto Sans TC\', sans-serif;" onmouseover="this.style.background=\'#EA580C\'" onmouseout="this.style.background=\'#F97316\'">完成</button></div>';
-            document.body.appendChild(modal);
-            setTimeout(function() {
-                if (document.body.contains(modal)) {
-                    modal.style.animation = 'fadeOut 0.3s ease';
-                    setTimeout(function() { modal.remove(); }, 300);
-                }
-            }, 5000);
-        }
-        
-        function showErrorMessage(errorDetails) {
-            const modal = document.createElement('div');
-            modal.style.cssText = 'position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.8); display: flex; align-items: center; justify-content: center; z-index: 10000; animation: fadeIn 0.3s ease;';
-            modal.innerHTML = '<div style="background: linear-gradient(135deg, #1E293B, #334155); padding: 3rem; border-radius: 20px; max-width: 500px; width: 90%; text-align: center; border: 2px solid #ef4444; box-shadow: 0 20px 60px rgba(239, 68, 68, 0.3);"><div style="width: 80px; height: 80px; background: #ef4444; border-radius: 50%; margin: 0 auto 1.5rem; display: flex; align-items: center; justify-content: center;"><svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3"><path d="M6 18L18 6M6 6l12 12" stroke-linecap="round"/></svg></div><h2 style="color: #F8FAFC; font-size: 1.8rem; margin-bottom: 1rem; font-weight: 900;">提交失敗</h2><p style="color: #CBD5E1; font-size: 1rem; line-height: 1.8; margin-bottom: 2rem;">很抱歉，表單提交時發生錯誤。<br>請稍後再試，或直接聯繫我們：<br><br><strong style="color: #06B6D4;">📞 0912-345-678</strong><br><strong style="color: #06B6D4;">📧 contact@zhidongflow.com</strong></p><button onclick="this.parentElement.parentElement.remove()" style="background: #ef4444; color: white; border: none; padding: 1rem 3rem; border-radius: 10px; font-size: 1.1rem; font-weight: 700; cursor: pointer;">關閉</button></div>';
-            document.body.appendChild(modal);
-        }
-        
-        const style = document.createElement('style');
-        style.textContent = '@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } } @keyframes slideUp { from { transform: translateY(50px); opacity: 0; } to { transform: translateY(0); opacity: 1; } } @keyframes slideInRight { from { transform: translateX(100%); opacity: 0; } to { transform: translateX(0); opacity: 1; } } @keyframes slideOutRight { from { transform: translateX(0); opacity: 1; } to { transform: translateX(100%); opacity: 0; } } @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }';
-        document.head.appendChild(style);
-    </script>
+    }
+
+    function showSuccessMessage(name) {
+        const modal = document.createElement('div');
+        modal.style.cssText = 'position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(28,19,10,.75);display:flex;align-items:center;justify-content:center;z-index:10000;animation:fadeIn .3s ease;backdrop-filter:blur(4px);';
+        modal.innerHTML = `<div style="background:white;padding:3rem;border-radius:24px;max-width:460px;width:90%;text-align:center;box-shadow:0 30px 80px rgba(0,0,0,.2);animation:slideUp .3s ease;border:1.5px solid #EDE4D8;"><div style="width:72px;height:72px;background:linear-gradient(135deg,#D4611A,#F5A623);border-radius:50%;margin:0 auto 1.5rem;display:flex;align-items:center;justify-content:center;"><svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3"><path d="M5 13l4 4L19 7" stroke-linecap="round" stroke-linejoin="round"/></svg></div><h2 style="color:#1C130A;font-size:1.8rem;font-weight:900;margin-bottom:1rem;">感謝您的聯繫！</h2><p style="color:#5A4A38;font-size:1rem;line-height:1.85;margin-bottom:2rem;">${name} 您好，<br>我們已收到您的診斷申請。<br><br><strong style="color:#D4611A;">顧問將在 24 小時內與您聯繫</strong><br>安排 60 分鐘免費企業健診。</p><button onclick="this.parentElement.parentElement.remove()" style="background:#D4611A;color:white;border:none;padding:.9rem 2.5rem;border-radius:8px;font-size:1rem;font-weight:700;cursor:pointer;font-family:'Noto Sans TC',sans-serif;">確認</button></div>`;
+        document.body.appendChild(modal);
+        setTimeout(() => { if(document.body.contains(modal)) modal.remove(); }, 8000);
+    }
+
+    function showErrorMessage(err) {
+        const modal = document.createElement('div');
+        modal.style.cssText = 'position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(28,19,10,.75);display:flex;align-items:center;justify-content:center;z-index:10000;backdrop-filter:blur(4px);';
+        modal.innerHTML = `<div style="background:white;padding:3rem;border-radius:24px;max-width:460px;width:90%;text-align:center;box-shadow:0 30px 80px rgba(0,0,0,.2);border:1.5px solid #EDE4D8;"><div style="width:72px;height:72px;background:#D94040;border-radius:50%;margin:0 auto 1.5rem;display:flex;align-items:center;justify-content:center;"><svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3"><path d="M6 18L18 6M6 6l12 12" stroke-linecap="round"/></svg></div><h2 style="color:#1C130A;font-size:1.8rem;font-weight:900;margin-bottom:1rem;">提交失敗</h2><p style="color:#5A4A38;font-size:1rem;line-height:1.85;margin-bottom:2rem;">請稍後再試，或直接聯繫我們：<br><br><strong style="color:#D4611A;">📞 0912-345-678</strong><br><strong style="color:#D4611A;">📧 contact@wutong-ai.com</strong></p><button onclick="this.parentElement.parentElement.remove()" style="background:#D94040;color:white;border:none;padding:.9rem 2.5rem;border-radius:8px;font-size:1rem;font-weight:700;cursor:pointer;">關閉</button></div>`;
+        document.body.appendChild(modal);
+    }
+
+    // 初始化
+    document.addEventListener('DOMContentLoaded', () => {
+        const t = document.getElementById('monitor-toggle');
+        const cl = document.getElementById('monitor-close');
+        const clr = document.getElementById('monitor-clear');
+        if (t) t.addEventListener('click', toggleMonitor);
+        if (cl) cl.addEventListener('click', toggleMonitor);
+        if (clr) clr.addEventListener('click', () => { monitorLogs = []; updateMonitorDisplay(); addMonitorLog('記錄已清除','info'); });
+        addMonitorLog('A版（痛點切入）已載入', 'success');
+    });
+
+    // CSS 動畫
+    const style = document.createElement('style');
+    style.textContent = '@keyframes fadeIn{from{opacity:0}to{opacity:1}}@keyframes slideUp{from{transform:translateY(40px);opacity:0}to{transform:translateY(0);opacity:1}}';
+    document.head.appendChild(style);
+</script>
 </body>
 </html>
