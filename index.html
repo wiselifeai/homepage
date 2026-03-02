@@ -312,7 +312,7 @@
             <div class="logo-icon">🌳</div>
             <div class="logo-text">
                 <span class="logo-main">梧桐智能管理顧問</span>
-                <span class="logo-sub">Management Consulting × AI</span>
+                <span class="logo-sub">以梧桐之智，承載您鳳凰之志</span>
             </div>
         </a>
         <a href="#contact" class="nav-cta">免費企業診斷</a>
@@ -371,7 +371,7 @@
                     <span>您中了幾個？</span>
                 </div>
             </div>
-            <div class="hero-card-badge">✦ 免費診斷，無需費用</div>
+            <div class="hero-card-badge">✦ 免費診斷｜精準到位</div>
         </div>
     </div>
 </section>
@@ -932,7 +932,7 @@
             <div class="contact-info">
                 <p>填寫表單，我們的顧問將在 <strong>24 小時內</strong>與您聯繫，安排一次 60 分鐘的免費企業健診。</p>
                 <div class="contact-features">
-                    <div class="cf-item"><span class="cf-icon">📞</span>免費診斷，不收任何費用</div>
+                    <div class="cf-item"><span class="cf-icon">📞</span>找出問題，比努力更重要</div>
                     <div class="cf-item"><span class="cf-icon">📋</span>診斷後提供書面問題分析報告</div>
                     <div class="cf-item"><span class="cf-icon">⚡</span>24 小時內回覆，快速響應</div>
                     <div class="cf-item"><span class="cf-icon">🔒</span>嚴格保護您的商業資訊隱私</div>
@@ -960,10 +960,21 @@
                         <input type="tel" id="phone" name="phone" placeholder="0912-345-678">
                     </div>
                 </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="lineId">LINE ID</label>
+                        <input type="text" id="lineId" name="lineId" placeholder="your_line_id">
+                    </div>
+                    <div class="form-group">
+                        <label for="wechatId">微信 ID</label>
+                        <input type="text" id="wechatId" name="wechatId" placeholder="your_wechat_id">
+                    </div>
+                </div>
+                <p class="contact-method-hint" style="font-size:.82rem;color:var(--text-muted);margin-top:-.8rem;margin-bottom:1.2rem;">※ 聯絡電話、LINE ID、微信 ID 請至少填寫一項</p>
                 <div class="form-group">
-                    <label for="interest">最迫切想解決的問題</label>
-                    <select id="interest" name="interest">
-                        <option value="">請選擇（可不填）</option>
+                    <label for="interest">最迫切想解決的問題 <span class="req">*</span></label>
+                    <select id="interest" name="interest" required>
+                        <option value="">請選擇</option>
                         <option value="報表與資料管理">報表雜亂、資料分散難整合</option>
                         <option value="流程與效率問題">流程複雜、效率低落、重複作業</option>
                         <option value="管理與人員問題">管理制度不健全、人員問題多</option>
@@ -990,7 +1001,7 @@
                     <div class="logo-icon">🌳</div>
                     <div class="logo-text">
                         <span class="logo-main">梧桐智能管理顧問公司</span>
-                        <span class="logo-sub">Management Consulting × AI</span>
+                        <span class="logo-sub">以梧桐之智，承載您鳳凰之志</span>
                     </div>
                 </div>
                 <p>由台塑、鴻海等大型集團資深主管創立，專為 10～100 人中小企業提供管理顧問 + AI自動化升級服務。讓天下沒有難用的系統。</p>
@@ -1009,7 +1020,7 @@
                 <ul>
                     <li><a href="mailto:wiselife.ai@gmail.com">📧 wiselife.ai@gmail.com</a></li>
                     <li><a href="tel:0952060805">📞 0952-060805</a></li>
-                    <li><a href="#">📍 701臺南市東區龍山街101號</a></li>
+                    <li><a href="#">📍 701臺南市東區龍山街87號五樓</a></li>
                     <li><a href="#contact">預約免費診斷</a></li>
                 </ul>
             </div>
@@ -1104,12 +1115,21 @@
         const submitBtn = event.target.querySelector('button[type="submit"]');
         const origText = submitBtn.innerText;
         const formData = new FormData(event.target);
+        const phone = formData.get('phone') || '';
+        const lineId = formData.get('lineId') || '';
+        const wechatId = formData.get('wechatId') || '';
+        if (!phone && !lineId && !wechatId) {
+            alert('請至少填寫一項聯絡方式（電話、LINE ID 或微信 ID）');
+            return;
+        }
         const checkedCount = document.querySelectorAll('.checklist-item.checked').length;
         const data = {
             company: formData.get('company'),
             name: formData.get('name'),
             email: formData.get('email'),
-            phone: formData.get('phone') || '',
+            phone: phone,
+            lineId: lineId,
+            wechatId: wechatId,
             interest: formData.get('interest') || '未選擇',
             message: formData.get('message') || '',
             submitTime: getTaiwanTime(),
